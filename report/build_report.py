@@ -55,6 +55,7 @@ doc.add_paragraph(
     "when there is not enough electricity for everyone, keeping the hospital on.")
 doc.add_paragraph("Qiskit Fall Fest 2026 hackathon. Domain: Energy and Smart Infrastructure. All input data is synthetic.")
 doc.add_paragraph("Team: [TEAM NAME]   Members: [NAME 1], [NAME 2], [NAME 3]   Repository: https://github.com/wajih-rathore/who-gets-the-power")
+doc.add_paragraph("Live demo: https://who-gets-the-power.vercel.app")
 
 
 def table(rows, header):

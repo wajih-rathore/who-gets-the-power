@@ -2,7 +2,9 @@
 
 A fair, transparent planner for a hot-afternoon power shortage. *Qiskit Fall Fest 2026 entry, domain: Energy & Smart Infrastructure.*
 
-When Karachi does not have enough electricity for everyone, someone has to be switched off each hour: a neighborhood, or the AI/crypto data center. Hospitals are never switched off. Our planner decides who goes dark each hour, keeps dark hours fair between neighborhoods, avoids leaving any area dark hours in a row, and treats the data center as the flexible load that pauses first while still weighing the revenue it brings. We write the decision as a 12-qubit optimization problem, solve it with QAOA in Qiskit, and check it against the exact best plan from brute force. A slider shows the trade-off (protect homes vs protect data-center revenue) and a disaster button re-plans when a power plant trips.
+**Live demo:** https://who-gets-the-power.vercel.app (the static page in `web/`, showing the committed `results.json`)
+
+When Karachi does not have enough electricity for everyone, someone has to be switched off each hour: a neighborhood, or the AI/crypto data center. Hospitals are never switched off. Our planner decides who goes dark each hour, keeps dark hours fair between neighborhoods, avoids leaving any area dark hours in a row, and treats the data center as the flexible load that pauses first while still weighing the revenue it brings. We write the decision as a 12-qubit optimization problem, solve it with QAOA in Qiskit, and check it against the exact best plan from brute force. A slider shows the trade-off (protect homes vs protect data-center revenue) and a disaster button switches to the plan solved for when a power plant trips.
 
 ## The hook
 
