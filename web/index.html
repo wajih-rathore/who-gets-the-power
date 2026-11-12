@@ -9,58 +9,63 @@
 </head>
 <body>
 <header>
-  <div class="title">
-    <h1>Who Gets the Power? <span class="ur">· Bijli Kis Ko?</span></h1>
-    <p class="hook">Not enough electricity for everyone at 3 pm: the AI data center, your neighborhood, or the hospital?</p>
-  </div>
+  <h1>Who Gets the Power? <span class="ur">· Bijli Kis Ko?</span></h1>
   <div class="head-r">
     <span class="tag">Synthetic data</span>
     <span class="tag mock" id="mock" hidden>mock data</span>
-    <button id="disaster" class="disaster" aria-pressed="false">Disaster: plant trips</button>
+    <button id="hood-open" class="link" aria-expanded="false" aria-controls="hood">Under the hood</button>
   </div>
 </header>
 
+<nav class="bar" aria-label="Story steps">
+  <ol id="steps"></ol>
+  <div class="nav">
+    <span class="count" id="count" aria-live="polite"></span>
+    <button id="back" class="btn">← Back</button>
+    <button id="next" class="btn primary">Next →</button>
+  </div>
+</nav>
+
 <main>
-  <section class="left">
-    <div class="seg" role="radiogroup" aria-label="Plan" id="plan-toggle"></div>
-    <div class="mapwrap">
-      <svg id="map" viewBox="0 0 560 420" role="img" aria-label="Schematic map: three neighborhoods, an AI data center and a hospital"></svg>
-      <div class="maphour" id="maphour"></div>
+  <section class="story">
+    <h2 id="head" aria-live="polite"></h2>
+    <div id="bigs" class="bigs"></div>
+    <p id="note" class="note"></p>
+    <div id="ctl" class="ctl" hidden>
+      <input type="range" id="sweep" min="0" max="3" step="1" value="2" aria-label="Trade-off between protecting homes and protecting data center revenue">
+      <div class="ticks" id="ticks"></div>
+      <div class="ctlrow">
+        <button id="disaster" class="disaster" aria-pressed="false">Plant trips</button>
+        <span id="ctlnote" class="ctlnote" aria-live="polite"></span>
+      </div>
     </div>
-    <p id="scenario-desc" class="desc" aria-live="polite"></p>
+    <p id="hint" class="hint">Press → or click Next to walk through the story.</p>
   </section>
 
-  <section class="right">
-    <div class="panel">
-      <h2>Who is dark, hour by hour <small>click an hour to show it on the map</small></h2>
-      <table id="tl"></table>
+  <section class="stage">
+    <div class="mapwrap">
+      <svg id="map" viewBox="0 0 560 420" role="img" aria-label="Schematic map: three neighborhoods, an AI data center and a hospital"></svg>
     </div>
-    <div class="row2">
-      <div class="panel">
-        <h2>Fairness</h2>
-        <div class="fair" id="fair"></div>
-      </div>
-      <div class="panel">
-        <h2>Data center revenue kept</h2>
-        <div class="rev" id="rev"></div>
-      </div>
-    </div>
-    <div class="row2">
-      <div class="panel">
-        <h2>Trade-off <small>protect homes ↔ protect revenue</small></h2>
-        <input type="range" id="sweep" min="0" max="3" step="1" value="1" aria-label="Trade-off between protecting homes and protecting data center revenue">
-        <div class="ticks" id="ticks"></div>
-        <div class="sweeplbl" id="sweeplbl"></div>
-      </div>
-      <div class="panel">
-        <h2>QAOA run <small id="qsub"></small></h2>
-        <dl id="qaoa"></dl>
-      </div>
-    </div>
+    <div class="hours" id="hours" role="group" aria-label="Hour of the afternoon"></div>
   </section>
 </main>
 
 <footer>Synthetic data. Numbers come from real solver runs (see README).</footer>
+
+<aside id="hood" class="hood" hidden aria-label="Under the hood">
+  <div class="hood-h"><h3>Under the hood</h3><button id="hood-close" class="link">Close ✕</button></div>
+  <div class="seg" role="radiogroup" aria-label="Scenario" id="scen-toggle"></div>
+  <p id="scenario-desc" class="desc"></p>
+  <div class="seg" role="radiogroup" aria-label="Plan" id="plan-toggle"></div>
+  <h4>Who is dark, hour by hour</h4>
+  <table id="tl"></table>
+  <div class="cols">
+    <div><h4>Fairness</h4><div class="fair" id="fair"></div></div>
+    <div><h4>Data center revenue kept</h4><div class="rev" id="rev"></div></div>
+  </div>
+  <h4>QAOA run <small id="qsub"></small></h4>
+  <dl id="qaoa"></dl>
+</aside>
 <script src="app.js"></script>
 </body>
 </html>
