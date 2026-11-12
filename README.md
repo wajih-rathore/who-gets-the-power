@@ -48,16 +48,18 @@ All input numbers are synthetic: made up but plausible. All output numbers come 
 Python 3.13, qiskit 2.6.2, qiskit-optimization 0.7.0 (pinned in `requirements.txt`).
 
 ```bash
-python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+make install    # creates .venv and installs requirements
 ```
 
 ## Run
 
 ```bash
-PYTHONPATH=src python -m bijli.run      # writes web/data/results.json and results/*.png, about 2-3 minutes
-PYTHONPATH=src pytest -q                # tests
-python report/build_report.py   # architecture diagram + .docx report
-python -m http.server -d web 8000       # demo, then open http://localhost:8000
+make test       # pytest suite
+make solve      # writes web/data/results.json and results/*.png, about 2-3 minutes
+make report     # builds report/WhoGetsThePower_Report.docx
+make serve      # web page at http://localhost:8000
+make demo       # two-screen planner at http://localhost:8000/demo/
+make help       # all targets
 ```
 
 ## Repo layout
@@ -67,6 +69,7 @@ src/bijli/model.py           instance, objective, QUBO, baselines, exact solver
 src/bijli/quantum.py         QAOA run on the QUBO (Qiskit simulator)
 src/bijli/run.py             runs everything, writes results.json and charts
 tests/test_model.py          pytest suite
+Makefile                     install, test, solve, report, serve
 web/                         static demo page reading web/data/results.json (schema in web/data/schema.md)
 results/                     generated charts and summary.md
 report/make_diagram.py       architecture diagram
