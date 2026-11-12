@@ -1,0 +1,58 @@
+The Quantum Optimization Challenge
+How can quantum computing be used to address a meaningful real-world optimization
+problem with competing objectives or limited resources?
+
+Challenge brief
+Real-world decisions involve choosing the best option while working with limited time, resources, or capacity. Teams must select
+ONE of the six application domains below, identify their own meaningful optimization problem, and develop a quantum or hybrid
+quantum-classical approach using IBM Qiskit. There is no pre-assigned problem: each team defines its own use case within the
+chosen domain.
+
+
+What each team must do
+01 Identify — a concrete, relevant optimization problem and its intended users or context.
+02 Formulate — the decision variables, objective function, constraints, and a small test instance.
+03 Justify — the selected quantum algorithm and show how the problem is represented in it.
+04 Implement — and run a meaningful quantum component in Qiskit can be a tool or a subpart.
+05 Evaluate — the result using a suitable classical, exact, or analytically verifiable reference.
+06 Reflect — on correctness, feasibility, practical limitations, and any trade-offs observed.
+
+Choose one of six application domains
+
+Select one domain and define your own optimization problem. The examples below are only to help you get started; they are not
+fixed problem statements. Use a small, simulator-friendly instance. Physical hardware and demonstrated quantum speedup are not
+required.
+
+  ELIGIBLE DOMAIN                          ILLUSTRATIVE OPTIMIZATION TASKS
+
+  1. UAVs & Robotics                       Mission task allocation, inspection scheduling, or robot charging schedules
+  2. Disaster Response                     Allocation of rescue teams, emergency supplies, or shelter resources
+  3. Healthcare                            Patient appointment scheduling or allocation of limited medical equipment
+  4. Agriculture                           Irrigation scheduling or assignment of equipment across fields
+  5. Logistics & Transportation            Delivery assignments, vehicle scheduling, or distribution planning
+  6. Energy & Smart Infrastructure         Power-use scheduling or allocation of charging slots
+
+
+Deliverables
+ ● A concise problem statement with objective, constraints, and motivation.
+ ● Working Qiskit code and a reproducible demonstration on at least one small instance provide Github Repositories link.
+ ● A brief report containing Architecture diagram ,results, a classical/exact reference comparison, and an honest discussion of
+   limitations.
+ ● A short technical pitch explaining the approach 3-min demo for evaluation ( Google Drive or link).
+Judging Rubric — 100 Points
+CRITERION                     WHAT TO ASSESS                                                                          PTS
+A. Problem validity           Problem relevance within an eligible domain (5); clear optimization formulation          20
+                              (5); appropriate scope and feasibility (5); measurable objectives and
+                              constraints (5).
+B. Meaningful quantum         Correct mapping to a quantum representation (10); suitability and justification of       25
+utilization                   algorithm (10); quantum computation materially used in the solution and awareness of
+                              quantum assumptions and limitations (5).
+C. Implementation &           Working Qiskit implementation (10); interpretable outputs (5); valid                     25
+validation                    classical/exact/analytical baseline (5); reproducibility of method and results (5).
+
+D. Innovation & originality   Originality of the chosen problem within the domain (10); thoughtful                     15
+                              adaptation, modeling, or technical extension (5).
+E. Presentation & defense     Clarity of explanation (10); demonstration quality and answers to technical questions    15
+                              (5).
+TOTAL                         Maximum available points                                                                 100
+
