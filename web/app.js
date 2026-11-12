@@ -73,7 +73,7 @@ function renderStory() {
   const homes = data.blocks.filter((b) => BI[b].kind !== "datacenter");
   let head, bigs, note = "";
   if (step === 0) {
-    head = `At ${data.hours[k.indexOf(Math.max(...k))]}, Karachi is short of power. Who goes dark?`;
+    head = "This afternoon, Karachi is short of power. Who goes dark?";
     bigs = `<div><div class="big bad">${k[hour] * mw}<span class="u">MW short</span></div><span class="lbl">${data.hours[hour]}: ${k[hour]} of ${data.blocks.length} blocks must be switched off</span></div>`;
   } else if (step === 1) {
     const p = normal().plans.today, w = homes.find((b) => sum(p.off[b]) === p.max_dark_hours);
