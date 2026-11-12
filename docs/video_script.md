@@ -25,7 +25,7 @@ Read aloud by the team over the six stages of the demo, about 280 spoken words (
 ## ⑤ Quantum vs classical
 [SCREEN: Stage 5. The comparison table: today's rule, quick rule, classical, quantum.]
 
-"A classical computer can solve this small case the sure way: try all 4,096 plans. It takes 0.04 seconds and agrees with the quantum answer. Quick rules of thumb do worse. But every extra switch doubles the plans: a city with 100 areas over a full day has more possible plans than there are atoms in the universe. That's the scale quantum computers are being built for."
+"A classical computer can solve this small case the sure way: try all 4,096 plans. It takes 0.035 seconds and agrees with the quantum answer. Quick rules of thumb do worse. But every extra switch doubles the plans: a city with 100 areas over a full day has more possible plans than there are atoms in the universe. That's the scale quantum computers are being built for."
 
 ## ⑥ The fair plan
 [SCREEN: Stage 6. The plan plays across the hours; then press "What if a power station breaks down?"]
