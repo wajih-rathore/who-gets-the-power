@@ -13,59 +13,84 @@
   <div class="head-r">
     <span class="tag">Synthetic data</span>
     <span class="tag mock" id="mock" hidden>mock data</span>
-    <button id="hood-open" class="link" aria-expanded="false" aria-controls="hood">Under the hood</button>
+    <button id="tour-open" class="help" aria-label="Show the guided tour" title="Show the guided tour">?</button>
   </div>
 </header>
 
-<nav class="bar" aria-label="Story steps">
-  <ol id="steps"></ol>
-  <div class="nav">
-    <span class="count" id="count" aria-live="polite"></span>
-    <button id="back" class="btn">← Back</button>
-    <button id="next" class="btn primary">Next →</button>
-  </div>
-</nav>
+<main class="app">
+  <aside class="panel" id="controls" aria-label="Controls">
+    <section>
+      <h2>Scenario</h2>
+      <div class="seg" role="radiogroup" aria-label="Scenario" id="scen"></div>
+      <p id="scen-desc" class="desc"></p>
+    </section>
+    <section>
+      <h2>Shortfall per hour</h2>
+      <ul id="short" class="short"></ul>
+    </section>
+    <button id="run" class="run">▶ Run quantum solver</button>
+    <section>
+      <h2>Trade-off</h2>
+      <input type="range" id="sweep" min="0" max="3" step="1" value="1" aria-label="Trade-off between protecting homes and protecting data center revenue">
+      <div class="ticks"><span>Protect homes</span><span>Protect revenue</span></div>
+      <p id="sweep-note" class="desc"></p>
+    </section>
+  </aside>
 
-<main>
-  <section class="story">
-    <h2 id="head" aria-live="polite"></h2>
-    <div id="bigs" class="bigs"></div>
-    <p id="note" class="note"></p>
-    <div id="ctl" class="ctl" hidden>
-      <input type="range" id="sweep" min="0" max="3" step="1" value="2" aria-label="Trade-off between protecting homes and protecting data center revenue">
-      <div class="ticks" id="ticks"></div>
-      <div class="ctlrow">
-        <button id="disaster" class="disaster" aria-pressed="false">Plant trips</button>
-        <span id="ctlnote" class="ctlnote" aria-live="polite"></span>
-      </div>
-    </div>
-    <p id="hint" class="hint">Press → or click Next to walk through the story.</p>
-  </section>
-
-  <section class="stage">
+  <section class="canvas" aria-label="City view">
+    <div class="compare" id="compare" role="group" aria-label="Compare plans"></div>
+    <p id="caption" class="caption" aria-live="polite"></p>
     <div class="mapwrap">
       <svg id="map" viewBox="0 0 560 420" role="img" aria-label="Schematic map: three neighborhoods, an AI data center and a hospital"></svg>
     </div>
     <div class="hours" id="hours" role="group" aria-label="Hour of the afternoon"></div>
+    <div class="reads" id="reads"></div>
   </section>
+
+  <aside class="panel q" id="quantum" aria-label="Quantum engine">
+    <div class="qhead">
+      <h2>Quantum engine</h2>
+      <p id="qlabel" class="qlabel"></p>
+    </div>
+    <div class="stg" data-s="0">
+      <h3><i>1</i>12 decisions become 12 qubits <small id="qleg">block × hour</small></h3>
+      <div id="qgrid" class="qgrid"></div>
+    </div>
+    <div class="stg" data-s="1">
+      <h3><i>2</i>QAOA circuit <small>click the drawing to enlarge</small></h3>
+      <div class="crow"><a id="cwrap" class="cwrap" target="_blank" rel="noopener" title="Open the full circuit"><img id="cimg" alt="QAOA circuit diagram"><span id="cnone" class="cnone" hidden>no image yet</span></a><div id="cstat" class="cstat"></div></div>
+    </div>
+    <div class="stg" data-s="2">
+      <h3><i>3</i>Energy per iteration <small id="estat"></small></h3>
+      <div class="chartrow"><svg id="chart" viewBox="0 0 280 78" preserveAspectRatio="none" role="img" aria-label="Energy against iteration"></svg><div id="dials" class="dials"></div></div>
+    </div>
+    <div class="stg" data-s="3">
+      <h3><i>4</i>Measurements <small id="hstat"></small></h3>
+      <svg id="hist" viewBox="0 0 440 70" role="img" aria-label="Histogram of the most frequent measured bitstrings"></svg>
+      <p id="hnote" class="hnote"></p>
+    </div>
+    <div class="two">
+      <div class="stg" data-s="4">
+        <h3><i>5</i>Decoded plan <small>dark = 1</small></h3>
+        <div id="dec" class="dec"></div>
+      </div>
+      <div class="stg" data-s="5">
+        <h3><i>6</i>Check</h3>
+        <div id="exact" class="exact"></div>
+      </div>
+    </div>
+  </aside>
 </main>
 
 <footer>Synthetic data. Numbers come from real solver runs (see README).</footer>
 
-<aside id="hood" class="hood" hidden aria-label="Under the hood">
-  <div class="hood-h"><h3>Under the hood</h3><button id="hood-close" class="link">Close ✕</button></div>
-  <div class="seg" role="radiogroup" aria-label="Scenario" id="scen-toggle"></div>
-  <p id="scenario-desc" class="desc"></p>
-  <div class="seg" role="radiogroup" aria-label="Plan" id="plan-toggle"></div>
-  <h4>Who is dark, hour by hour</h4>
-  <table id="tl"></table>
-  <div class="cols">
-    <div><h4>Fairness</h4><div class="fair" id="fair"></div></div>
-    <div><h4>Data center revenue kept</h4><div class="rev" id="rev"></div></div>
+<div id="tour" class="tour" hidden>
+  <div class="spot" id="spot"></div>
+  <div class="tip" id="tip" role="dialog" aria-label="Guided tour">
+    <b id="tip-t"></b><p id="tip-p"></p>
+    <div class="tip-b"><button id="tip-skip" class="link">Skip tour</button><span id="tip-n" class="count"></span><button id="tip-next" class="btn primary">Next</button></div>
   </div>
-  <h4>QAOA run <small id="qsub"></small></h4>
-  <dl id="qaoa"></dl>
-</aside>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
