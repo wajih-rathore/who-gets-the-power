@@ -1,0 +1,616 @@
+{
+ "synthetic": true,
+ "mw_per_block": 10,
+ "currency_note": "revenue and damage in synthetic 'PKR million per hour'",
+ "hours": [
+  "2\u20133 pm",
+  "3\u20134 pm",
+  "4\u20135 pm"
+ ],
+ "blocks": [
+  "N1",
+  "N2",
+  "N3",
+  "DC"
+ ],
+ "block_info": {
+  "N1": {
+   "name": "Area 1",
+   "kind": "homes",
+   "loss_pct": 38,
+   "damage_per_hour": 1.6
+  },
+  "N2": {
+   "name": "Area 2",
+   "kind": "homes",
+   "loss_pct": 22,
+   "damage_per_hour": 1.0
+  },
+  "N3": {
+   "name": "Area 3",
+   "kind": "market",
+   "loss_pct": 12,
+   "damage_per_hour": 3.0
+  },
+  "DC": {
+   "name": "AI data center",
+   "kind": "datacenter",
+   "revenue_per_hour": [
+    5.5,
+    7.0,
+    4.5
+   ]
+  }
+ },
+ "hospital": {
+  "name": "Hospital",
+  "always_on": true
+ },
+ "weights": {
+  "fairness": 2.0,
+  "back_to_back": 3.0,
+  "revenue": 1.0,
+  "damage": 1.0,
+  "penalty": 40.0
+ },
+ "scenarios": {
+  "normal": {
+   "label": "Normal hot afternoon",
+   "description": "Power is short by one block at 2 pm, two at 3 pm and one at 4 pm.",
+   "shortfall_blocks": [
+    1,
+    2,
+    1
+   ],
+   "plans": {
+    "today": {
+     "label": "Today's rule (cut highest losses)",
+     "off": {
+      "N1": [
+       1,
+       1,
+       1
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       0,
+       0,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       0
+      ]
+     },
+     "valid": true,
+     "objective": 33.16,
+     "approx_ratio": 0.5169,
+     "is_optimal": false,
+     "max_dark_hours": 3,
+     "back_to_back": 2,
+     "home_dark_hours": 4,
+     "dc_revenue_kept": 17.0,
+     "dc_revenue_kept_pct": 100.0,
+     "economic_damage": 7.16
+    },
+    "dc_first": {
+     "label": "Data center always first",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       0,
+       0
+      ],
+      "N3": [
+       0,
+       0,
+       0
+      ],
+      "DC": [
+       1,
+       1,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 21.24,
+     "approx_ratio": 0.807,
+     "is_optimal": false,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 1,
+     "dc_revenue_kept": 0,
+     "dc_revenue_kept_pct": 0.0,
+     "economic_damage": 2.24
+    },
+    "greedy": {
+     "label": "Greedy (hour by hour)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       1,
+       1,
+       1
+      ],
+      "N3": [
+       0,
+       0,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       0
+      ]
+     },
+     "valid": true,
+     "objective": 31.84,
+     "approx_ratio": 0.5383,
+     "is_optimal": false,
+     "max_dark_hours": 3,
+     "back_to_back": 2,
+     "home_dark_hours": 4,
+     "dc_revenue_kept": 17.0,
+     "dc_revenue_kept_pct": 100.0,
+     "economic_damage": 5.84
+    },
+    "qaoa": {
+     "label": "Quantum (QAOA)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       1,
+       0,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 17.14,
+     "approx_ratio": 1.0,
+     "is_optimal": true,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 3,
+     "dc_revenue_kept": 12.5,
+     "dc_revenue_kept_pct": 73.5,
+     "economic_damage": 6.64
+    },
+    "exact": {
+     "label": "Exact (brute force)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       1,
+       0,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 17.14,
+     "approx_ratio": 1.0,
+     "is_optimal": true,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 3,
+     "dc_revenue_kept": 12.5,
+     "dc_revenue_kept_pct": 73.5,
+     "economic_damage": 6.64
+    }
+   },
+   "qaoa": {
+    "qubits": 12,
+    "reps": 2,
+    "shots": 1024,
+    "seconds": 28.0,
+    "restarts": 3,
+    "p_opt": 0.00566,
+    "p_feasible": 0.4587,
+    "p_opt_random": 0.000244,
+    "p_feasible_random": 0.0234,
+    "found_optimum": true
+   }
+  },
+  "disaster": {
+   "label": "Disaster: a power plant trips",
+   "description": "A plant trips at 3 pm, so three blocks must go dark that hour instead of two.",
+   "shortfall_blocks": [
+    1,
+    3,
+    1
+   ],
+   "plans": {
+    "today": {
+     "label": "Today's rule (cut highest losses)",
+     "off": {
+      "N1": [
+       1,
+       1,
+       1
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       0,
+       1,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       0
+      ]
+     },
+     "valid": true,
+     "objective": 39.36,
+     "approx_ratio": 0.6057,
+     "is_optimal": false,
+     "max_dark_hours": 3,
+     "back_to_back": 2,
+     "home_dark_hours": 5,
+     "dc_revenue_kept": 17.0,
+     "dc_revenue_kept_pct": 100.0,
+     "economic_damage": 11.36
+    },
+    "dc_first": {
+     "label": "Data center always first",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       0,
+       0,
+       0
+      ],
+      "DC": [
+       1,
+       1,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 24.64,
+     "approx_ratio": 0.9675,
+     "is_optimal": false,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 2,
+     "dc_revenue_kept": 0,
+     "dc_revenue_kept_pct": 0.0,
+     "economic_damage": 3.64
+    },
+    "greedy": {
+     "label": "Greedy (hour by hour)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       1,
+       1,
+       1
+      ],
+      "N3": [
+       0,
+       1,
+       0
+      ],
+      "DC": [
+       0,
+       0,
+       0
+      ]
+     },
+     "valid": true,
+     "objective": 38.04,
+     "approx_ratio": 0.6267,
+     "is_optimal": false,
+     "max_dark_hours": 3,
+     "back_to_back": 2,
+     "home_dark_hours": 5,
+     "dc_revenue_kept": 17.0,
+     "dc_revenue_kept_pct": 100.0,
+     "economic_damage": 10.04
+    },
+    "qaoa": {
+     "label": "Quantum (QAOA)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       0,
+       1,
+       0
+      ],
+      "DC": [
+       1,
+       0,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 23.84,
+     "approx_ratio": 1.0,
+     "is_optimal": true,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 3,
+     "dc_revenue_kept": 7.0,
+     "dc_revenue_kept_pct": 41.2,
+     "economic_damage": 7.84
+    },
+    "exact": {
+     "label": "Exact (brute force)",
+     "off": {
+      "N1": [
+       0,
+       1,
+       0
+      ],
+      "N2": [
+       0,
+       1,
+       0
+      ],
+      "N3": [
+       0,
+       1,
+       0
+      ],
+      "DC": [
+       1,
+       0,
+       1
+      ]
+     },
+     "valid": true,
+     "objective": 23.84,
+     "approx_ratio": 1.0,
+     "is_optimal": true,
+     "max_dark_hours": 1,
+     "back_to_back": 0,
+     "home_dark_hours": 3,
+     "dc_revenue_kept": 7.0,
+     "dc_revenue_kept_pct": 41.2,
+     "economic_damage": 7.84
+    }
+   },
+   "qaoa": {
+    "qubits": 12,
+    "reps": 2,
+    "shots": 1024,
+    "seconds": 28.9,
+    "restarts": 3,
+    "p_opt": 0.00601,
+    "p_feasible": 0.3473,
+    "p_opt_random": 0.000244,
+    "p_feasible_random": 0.0156,
+    "found_optimum": true
+   }
+  }
+ },
+ "sweep": [
+  {
+   "label": "Protect homes",
+   "revenue_weight": 0.5,
+   "plan": {
+    "label": "Exact (brute force)",
+    "off": {
+     "N1": [
+      0,
+      0,
+      0
+     ],
+     "N2": [
+      0,
+      1,
+      0
+     ],
+     "N3": [
+      0,
+      0,
+      0
+     ],
+     "DC": [
+      1,
+      1,
+      1
+     ]
+    },
+    "valid": true,
+    "objective": 11.9,
+    "approx_ratio": 1.0,
+    "is_optimal": true,
+    "max_dark_hours": 1,
+    "back_to_back": 0,
+    "home_dark_hours": 1,
+    "dc_revenue_kept": 0,
+    "dc_revenue_kept_pct": 0.0,
+    "economic_damage": 1.4
+   },
+   "qaoa_found_optimum": false
+  },
+  {
+   "label": "Lean homes",
+   "revenue_weight": 0.8,
+   "plan": {
+    "label": "Exact (brute force)",
+    "off": {
+     "N1": [
+      0,
+      1,
+      0
+     ],
+     "N2": [
+      0,
+      1,
+      0
+     ],
+     "N3": [
+      0,
+      0,
+      0
+     ],
+     "DC": [
+      1,
+      0,
+      1
+     ]
+    },
+    "valid": true,
+    "objective": 15.64,
+    "approx_ratio": 1.0,
+    "is_optimal": true,
+    "max_dark_hours": 1,
+    "back_to_back": 0,
+    "home_dark_hours": 2,
+    "dc_revenue_kept": 7.0,
+    "dc_revenue_kept_pct": 41.2,
+    "economic_damage": 3.64
+   },
+   "qaoa_found_optimum": true
+  },
+  {
+   "label": "Balanced",
+   "revenue_weight": 1.0,
+   "plan": {
+    "label": "Exact (brute force)",
+    "off": {
+     "N1": [
+      0,
+      1,
+      0
+     ],
+     "N2": [
+      0,
+      1,
+      0
+     ],
+     "N3": [
+      1,
+      0,
+      0
+     ],
+     "DC": [
+      0,
+      0,
+      1
+     ]
+    },
+    "valid": true,
+    "objective": 17.14,
+    "approx_ratio": 1.0,
+    "is_optimal": true,
+    "max_dark_hours": 1,
+    "back_to_back": 0,
+    "home_dark_hours": 3,
+    "dc_revenue_kept": 12.5,
+    "dc_revenue_kept_pct": 73.5,
+    "economic_damage": 6.64
+   },
+   "qaoa_found_optimum": true
+  },
+  {
+   "label": "Protect revenue",
+   "revenue_weight": 2.0,
+   "plan": {
+    "label": "Exact (brute force)",
+    "off": {
+     "N1": [
+      0,
+      1,
+      0
+     ],
+     "N2": [
+      1,
+      0,
+      1
+     ],
+     "N3": [
+      0,
+      1,
+      0
+     ],
+     "DC": [
+      0,
+      0,
+      0
+     ]
+    },
+    "valid": true,
+    "objective": 20.64,
+    "approx_ratio": 1.0,
+    "is_optimal": true,
+    "max_dark_hours": 2,
+    "back_to_back": 0,
+    "home_dark_hours": 4,
+    "dc_revenue_kept": 17.0,
+    "dc_revenue_kept_pct": 100.0,
+    "economic_damage": 8.64
+   },
+   "qaoa_found_optimum": true
+  }
+ ]
+}
