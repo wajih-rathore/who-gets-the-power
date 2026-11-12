@@ -1,44 +1,38 @@
 # Who Gets the Power?: 3-minute video script
 
-Read aloud by the team. About 315 spoken words (about 2:25 at 130 words a minute, leaving room for demo pauses). Numbers are taken from `web/data/results.json` (normal scenario unless noted). Say "set aside", never "is running". Keep a neutral tone.
+Read aloud by the team, about 300 spoken words (about 2:20 at 130 words a minute, leaving room for the map animations). Numbers come from `web/data/results.json` (normal scenario unless noted). Say "set aside", never "is running". Keep a neutral tone. Open the page at step 1: https://who-gets-the-power.vercel.app/#step=1
 
 ## 0:00 - 0:20 Hook
-[SCREEN: Title card, then headline-style text of the two facts]
+[SCREEN: Title, then the two facts as headlines]
 
-"In May 2025, Pakistan set aside 2,000 megawatts of electricity for Bitcoin mining and AI data centers. In August 2026, the regulator ordered K-Electric to stop cutting whole neighborhoods based on losses. So at 3 pm in June, when there is not enough power for everyone, who gets it: the AI data center, your neighborhood, or the hospital?"
+"In May 2025, Pakistan set aside 2,000 megawatts of electricity for Bitcoin mining and AI data centers. In August 2026, the regulator ordered K-Electric to stop cutting whole neighborhoods based on losses. So when there isn't enough power, who gets it?"
 
-## 0:20 - 0:35 Problem
-[SCREEN: Three neighborhoods, a data center and a hospital on a simple map]
+## 0:20 - 0:40 Step 1: Not enough power
+[SCREEN: Step 1. Power flows from the plant, the gauge turns red.]
 
-"Every hour, someone is switched off: one of three neighborhoods or the data center. Never the hospital. We do not say who is right. We make the trade-offs visible."
+"Three pm in June. Karachi needs more power than it has: twenty megawatts short at the peak. The hospital is never cut. Someone else has to be."
 
-## 0:35 - 1:05 How we turned it into 12 qubits
-[SCREEN: Grid of 12 yes/no boxes, then a penalty bar]
+## 0:40 - 1:00 Step 2: Today's rule
+[SCREEN: Step 2. Area 1's line cuts every hour.]
 
-"Each yes-or-no choice, like Area 2 is off at 4 pm, is one qubit. Four blocks, three hours: twelve qubits. Cutting exactly the right number each hour is a penalty, checked by brute force. We score fairness, back-to-back darkness, data-center revenue and economic damage. These pair terms are what QAOA is built for."
+"Today's rule cuts the highest-loss area first. The same neighborhood goes dark for three hours, two of them back to back."
 
-## 1:05 - 2:30 Demo: press Run
-[SCREEN: Demo page, tour dismissed. Scenario: Normal. Point at the shortfall per hour in the left panel.]
+## 1:00 - 1:25 Step 3: 12 switches
+[SCREEN: Step 3. Switch icons appear by each block.]
 
-"On the left: the scenario and the shortfall each hour. We press Run. This replays a real Qiskit run on a simulator."
+"Four blocks, three hours: twelve on-off switches, and 4,096 possible plans. A quantum computer holds all twelve switches at once as qubits."
 
-[SCREEN: Press ▶ Run quantum solver. Let stages 1 to 3 play.]
+## 1:25 - 1:55 Step 4: The search
+[SCREEN: Step 4. Switches flicker, the chance bar grows.]
 
-"Twelve decisions become twelve qubits. The QAOA circuit has two layers. The optimizer tunes its dials and the energy drops."
+"It tunes its settings over forty-two rounds so good plans come up more often. Picking the best plan at random has a 0.024 percent chance. After tuning it is 0.57 percent, about twenty-three times better."
 
-[SCREEN: Stages 4 to 6: histogram, plan, exact check.]
+## 1:55 - 2:25 Step 5: The fair plan
+[SCREEN: Step 5. The plan plays hour by hour.]
 
-"We measure. The best valid sample decodes into the city: areas take turns, the hospital stays on, the data center pauses for an hour. The exact solver agrees."
+"The fair plan: each area is dark for one hour at most, never back to back. The data center pauses for one hour and keeps 74 percent of its revenue. The hospital stays on."
 
-[SCREEN: Click Today's rule, then Quantum]
+## 2:25 - 3:00 Step 6: Checked, and honest
+[SCREEN: Step 6. Then press Plant trips.]
 
-"Today's rule leaves one area dark all three hours. Quantum: no area dark more than an hour, and 73.5 percent of data-center revenue kept."
-
-[SCREEN: Switch scenario to Plant trips, press Run again]
-
-"A plant trips: one more block must go dark. Run again: QAOA again finds the exact best plan. The slider trades homes against revenue."
-
-## 2:30 - 3:00 Honest limits and what's next
-[SCREEN: Limitations list, then repo link]
-
-"Honestly: the data is synthetic, and at twelve decisions a laptop solves this instantly, so we claim no quantum speedup. We ran a simulator, not hardware, and the 2,000 megawatt plan was only partly implemented. Grover search failed our test. Next: real load data and more hours. Who Gets the Power: make the choice visible."
+"A regular computer checked all 4,096 plans and found the same answer. At this size a laptop is enough, and our data is synthetic, run on a simulator, so we claim no speedup. If a plant trips, the page shows the plan we solved for that case too. Who Gets the Power: make the choice visible."
