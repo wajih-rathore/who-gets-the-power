@@ -1,8 +1,8 @@
 "use strict";
 const $ = (s) => document.querySelector(s);
 const PLANS = [["today", "Today's rule"], ["dc_first", "DC-first"], ["greedy", "Greedy"], ["qaoa", "Quantum"], ["exact", "Exact"]];
-const POS = { N1: [30, 45], N2: [30, 160], DC: [380, 45], N3: [380, 160] };
-const BW = 150, BH = 88;
+const POS = { N1: [30, 70], N2: [30, 238], DC: [380, 70], N3: [380, 238] };
+const BW = 150, BH = 96, CY = 211;
 let data, scen = "normal", plan = "exact", hour = 1, sweepIdx = null;
 
 async function load() {
@@ -17,29 +17,28 @@ const cur = () => (sweepIdx === null ? data.scenarios[scen].plans[plan] : data.s
 function buildMap() {
   const wires = Object.entries(POS).map(([b, [x, y]]) => {
     const ex = x < 280 ? x + BW : x, ey = y + BH / 2;
-    return `<path class="wire" id="w-${b}" d="M280,140 L${ex},${ey}"/>`;
-  }).join("") + `<path class="wire" id="w-H" d="M280,140 L280,205"/>`;
+    return `<path class="wire" id="w-${b}" d="M280,${CY} L${ex},${ey}"/>`;
+  }).join("") + `<path class="wire" id="w-H" d="M280,${CY} L280,268"/>`;
   const blocks = Object.entries(POS).map(([b, [x, y]]) => {
     const dc = b === "DC", n = dc ? 8 : 6;
     const bl = Array.from({ length: n }, (_, i) => {
-      if (dc) return `<rect class="bld" x="${x + 12 + i * 16.5}" y="${y + 10}" width="11" height="46" rx="2"/>`;
+      if (dc) return `<rect class="bld" x="${x + 12 + i * 16.5}" y="${y + 10}" width="11" height="46" rx="2"/>` + [0, 1, 2, 3].map((k) => `<rect class="win" x="${x + 14.5 + i * 16.5}" y="${y + 14 + k * 10}" width="6" height="5"/>`).join("");
       const c = i % 3, h = 22 + ((i * 7) % 3) * 8, base = y + 56;
-      return `<rect class="bld" x="${x + 12 + c * 45}" y="${base - h - (i > 2 ? 0 : 0)}" width="36" height="${h}" rx="2"/>`;
+      return `<rect class="bld" x="${x + 12 + c * 45}" y="${base - h - (i > 2 ? 0 : 0)}" width="36" height="${h}" rx="2"/>` + [0, 1, 2].map((k) => `<rect class="win" x="${x + 17 + c * 45 + (k % 2) * 14}" y="${base - h + 5 + Math.floor(k / 2) * 9}" width="7" height="5"/>`).join("");
     }).join("");
-    return `<g class="blk lit" id="b-${b}"><rect class="glow" x="${x - 6}" y="${y - 6}" width="${BW + 12}" height="${BH + 12}" rx="14"/>
+    return `<g class="blk ${dc ? "dc " : ""}lit" id="b-${b}"><rect class="glow" x="${x - 6}" y="${y - 6}" width="${BW + 12}" height="${BH + 12}" rx="14"/>
       <rect class="box" x="${x}" y="${y}" width="${BW}" height="${BH}" rx="10"/>${bl}
-      <text class="mlabel" x="${x + 12}" y="${y + 73}"></text><text class="msub st" x="${x + BW - 10}" y="${y + 73}" text-anchor="end"></text>
-      <text class="msub" x="${x + 12}" y="${y + 85}" style="display:none"></text></g>`;
+      <text class="mlabel" x="${x + 12}" y="${y + 76}"></text><text class="msub st" x="${x + 12}" y="${y + 90}"></text></g>`;
   }).join("");
-  const hx = 205, hy = 205;
-  $("#map").innerHTML = `<rect class="sea" x="0" y="268" width="560" height="32"/>
-    <text class="msub" x="280" y="288" text-anchor="middle">Arabian Sea</text>
-    <path class="road" d="M0,140 H560 M280,0 V268"/>${wires}${blocks}
-    <circle cx="280" cy="140" r="15" fill="#10131b" stroke="var(--lit2)" stroke-width="2"/>
-    <path d="M283,130 L275,142 H281 L277,150 L286,137 H280Z" fill="var(--lit)"/>
-    <g class="blk lit"><rect class="box" x="${hx}" y="${hy}" width="150" height="46" rx="10" style="stroke:var(--hosp);fill:#0e2a24"/>
+  const hx = 205, hy = 268;
+  $("#map").innerHTML = `<path class="sea" d="M0,382 Q70,366 140,378 T280,376 T420,380 T560,370 V420 H0Z"/>
+    <text class="msub sealbl" x="548" y="406" text-anchor="end">Arabian Sea</text>
+    <path class="road" d="M0,${CY} H560 M280,0 V378"/>${wires}${blocks}
+    <circle cx="280" cy="${CY}" r="15" class="hub"/>
+    <path class="bolt" d="M283,${CY - 10} L275,${CY + 2} H281 L277,${CY + 10} L286,${CY - 3} H280Z"/>
+    <g class="blk hq lit"><rect class="glow" x="${hx - 4}" y="${hy - 4}" width="158" height="54" rx="12"/><rect class="box" x="${hx}" y="${hy}" width="150" height="46" rx="10"/>
       <path d="M${hx + 24},${hy + 12} h8 v8 h8 v8 h-8 v8 h-8 v-8 h-8 v-8 h8z" fill="var(--hosp)"/>
-      <text class="mlabel" x="${hx + 52}" y="${hy + 21}">Hospital</text><text class="msub" x="${hx + 52}" y="${hy + 36}" style="fill:var(--hosp)">always on</text></g>`;
+      <text class="mlabel" x="${hx + 52}" y="${hy + 21}">Hospital</text><text class="msub" x="${hx + 52}" y="${hy + 36}">always on</text></g>`;
 }
 
 function renderMap() {
@@ -72,7 +71,7 @@ function renderStats() {
   const pips = (n) => `<div class="pips">${[1, 2, 3].map((i) => `<i class="${i <= n ? "f" + (n >= 3 ? " hot" : "") : ""}"></i>`).join("")}</div>`;
   $("#fair").innerHTML = `<div><div class="big">${p.max_dark_hours}<span class="lbl"> of 3 h</span></div><div class="lbl">most dark hours, one area</div>${pips(p.max_dark_hours)}</div>
     <div><div class="big">${p.back_to_back}</div><div class="lbl">back-to-back dark hours</div></div>`;
-  const tot = p.dc_revenue_kept_pct ? p.dc_revenue_kept / (p.dc_revenue_kept_pct / 100) : 0;
+  const tot = data.block_info.DC.revenue_per_hour.reduce((a, b) => a + b, 0);
   $("#rev").innerHTML = `<div><div class="big">${f1(p.dc_revenue_kept)}<span class="lbl"> of ${f1(tot)} PKR M</span></div></div>
     <div><div class="big" style="font-size:24px">${Math.round(p.dc_revenue_kept_pct)}%</div></div>
     <div class="bar" style="grid-column:1/3"><b style="width:${p.dc_revenue_kept_pct}%"></b></div>
