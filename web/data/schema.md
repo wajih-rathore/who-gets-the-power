@@ -72,3 +72,29 @@ PLAN:
 ```
 
 The numbers above are placeholders showing the shape; the real values live in `results.json`.
+
+## QAOA trace (added 17:25 UTC): `scenarios.<name>.qaoa.trace`
+
+A record of the real QAOA run (the best restart), so the page can replay it. Fixed seeds; real numbers only.
+
+```jsonc
+"trace": {
+  "qubit_map": [{"q": 0, "block": "N1", "hour": 0}, /* ... 12 entries, q0..q11 */],
+  "bit_order": "bitstring[i] is qubit q_i (q0 is the leftmost character)",   // NOT Qiskit's little-endian order
+  "circuit": {"image": "assets/circuit_normal.svg", "reps": 2, "depth": 57, "two_qubit_gates": 96,
+              "num_params": 4, "note": "how depth and gates were counted (e.g. after transpile to cx/rz/rx/h)"},
+  "cobyla": {
+    "iterations": [{"i": 1, "energy": 41.2, "gamma": [0.1, 0.2], "beta": [0.3, 0.4]} /* ... every evaluation */],
+    "final_gamma": [0.41, 0.77], "final_beta": [0.52, 0.18], "evaluations": 87
+  },
+  "histogram": {
+    "shots": 1024,
+    "top": [{"bitstring": "010001100001", "count": 9, "valid": true, "is_optimum": true, "objective": 17.14} /* ~12 most frequent; objective null if invalid */]
+  },
+  "decoded": {"bitstring": "010001100001", "off": {"N1": [0,1,0], "N2": [0,1,0], "N3": [1,0,0], "DC": [0,0,1]}},  // = plans.qaoa
+  "exact_check": {"plans_checked": 4096, "valid_plans": 96, "seconds": 0.02, "agrees": true},
+  "seconds": 28.0          // wall-clock time of the whole QAOA run (same as qaoa.seconds)
+}
+```
+
+The circuit image path is relative to `web/`.
