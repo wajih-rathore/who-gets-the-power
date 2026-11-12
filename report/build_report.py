@@ -1,19 +1,23 @@
-"""Build report/WhoGetsThePower_Report.docx. Rerun after results land:
-   .venv/bin/python report/build_report.py
-Every result number comes from web/data/results.json; a missing key prints "TBD"."""
-import glob
+"""Build WhoGetsThePower_Report.docx (hackathon submission copy).
+Every result number comes from the repo's web/data/results.json; a missing key prints "TBD"."""
 import json
 import os
 
 from docx import Document
-from docx.shared import Inches
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches, Pt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)
-RESULTS = os.environ.get("RESULTS_JSON") or os.path.join(ROOT, "web", "data", "results.json")
-R = json.load(open(RESULTS)) if os.path.exists(RESULTS) else {}
-HOURS = R.get("hours") or ["hour 1", "hour 2", "hour 3"]
-BLOCKS = R.get("blocks") or ["N1", "N2", "N3", "DC"]
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+R = json.load(open(os.path.join(REPO, "web", "data", "results.json")))
+HOURS = R["hours"]
+BLOCKS = R["blocks"]
+# Islamabad-style display names for the code's block ids (the code's own example names are Karachi areas).
+AREA = {"N1": "I-10 (homes, high loss)", "N2": "G-9 (homes)", "N3": "Blue Area (offices & shops)",
+        "DC": "I-9 AI data centre (can pause)"}
+SHORT = {"N1": "I-10", "N2": "G-9", "N3": "Blue Area", "DC": "I-9 AI centre"}
+TRIBUNE = "https://tribune.com.pk/story/2627009/nepra-orders-k-electric-to-end-load-shedding"
+DAWN = "https://www.dawn.com/news/1913342"
 
 
 def get(d, *keys):
@@ -44,18 +48,13 @@ def schedule(plan):
     for b in BLOCKS:
         hrs = [HOURS[i] for i, v in enumerate(off.get(b, [])) if v and i < len(HOURS)]
         if hrs:
-            parts.append(f"{b}: {', '.join(hrs)}")
+            parts.append(f"{SHORT[b]}: {', '.join(hrs)}")
     return "; ".join(parts) or "none"
 
 
 doc = Document()
-doc.add_heading("Who Gets the Power? (Bijli Kis Ko?)", 0)
-doc.add_paragraph(
-    "A quantum (QAOA) planner that decides which Karachi neighborhood, or the AI data center, goes dark each hour "
-    "when there is not enough electricity for everyone, keeping the hospital on.")
-doc.add_paragraph("Qiskit Fall Fest 2026 hackathon. Domain: Energy and Smart Infrastructure. All input data is synthetic.")
-doc.add_paragraph("Team: [TEAM NAME]   Members: [NAME 1], [NAME 2], [NAME 3]   Repository: https://github.com/wajih-rathore/who-gets-the-power")
-doc.add_paragraph("Live demo: https://who-gets-the-power.vercel.app")
+doc.styles["Normal"].font.name = "Calibri"
+doc.styles["Normal"].font.size = Pt(11)
 
 
 def table(rows, header):
@@ -64,9 +63,13 @@ def table(rows, header):
     for c, h in zip(t.rows[0].cells, header):
         c.text = h
     for r in rows:
-        cells = t.add_row().cells
-        for c, v in zip(cells, r):
+        for c, v in zip(t.add_row().cells, r):
             c.text = str(v)
+    for row in t.rows:
+        for c in row.cells:
+            for p in c.paragraphs:
+                for run in p.runs:
+                    run.font.size = Pt(9.5)
     doc.add_paragraph()
 
 
@@ -75,187 +78,196 @@ def bullets(items):
         doc.add_paragraph(i, style="List Bullet")
 
 
-def picture(name, cap, width=6.0):
-    p = os.path.join(ROOT, "results", name)
-    if os.path.exists(p):
-        doc.add_picture(p, width=Inches(width))
-        doc.add_paragraph(cap)
-
+# Title page
+for _ in range(6):
+    doc.add_paragraph()
+t = doc.add_heading("Who Gets the Power? (Bijli Kis Ko?)", 0)
+t.alignment = WD_ALIGN_PARAGRAPH.CENTER
+p = doc.add_paragraph("Fair load-shedding with quantum optimization")
+p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+p.runs[0].font.size = Pt(16)
+for line in ("Qiskit Fall Fest 2026", "Team AWS: Wajih, Ali and Sagar",
+             "Repository: https://github.com/wajih-rathore/who-gets-the-power"):
+    doc.add_paragraph(line).alignment = WD_ALIGN_PARAGRAPH.CENTER
+doc.add_page_break()
 
 # 1
-doc.add_heading("1. Problem and users", 1)
+doc.add_heading("1. Problem", 1)
 doc.add_paragraph(
-    "On a hot afternoon, Karachi does not have enough electricity for everyone. Every hour, someone has to be switched off: "
-    "a neighborhood, or the city's AI/crypto data center. Hospitals are never switched off. Our system decides who goes dark each hour. "
-    "It keeps dark hours fair between neighborhoods, avoids leaving any area dark for hours in a row, and treats the data center "
-    "as the flexible load that pauses first, while still weighing the revenue it brings.")
-doc.add_paragraph("Who it serves:")
+    "In a heatwave there is not enough electricity for everyone, so utilities in Pakistan switch areas off in turns. "
+    "Today they choose by \"losses\": the gap between power sent to an area and power paid for. An area with high losses is cut "
+    "the longest, so people there who pay their bills sit in the dark too.")
 bullets([
-    "Grid operator and regulator: a transparent, auditable load-shedding plan, with the trade-off between homes and data-center revenue made explicit instead of implicit.",
-    "Residents: fewer long or repeated outages in the same area, and a visible reason for each cut.",
-])
-doc.add_heading("Why now (as reported in the news)", 2)
-bullets([
-    "Dawn, 25 May 2025: the Finance Ministry and the Pakistan Crypto Council announced that 2,000 MW of electricity would be set aside for "
-    "Bitcoin mining and AI data centers (https://dawn.com/news/1913238).",
-    "Status, October 2026: reports say the plan is only partly implemented, with no discounted tariff or confirmed operation "
-    "(cryptopakistan.com, 2 Oct 2026; a secondary source). We therefore say the power was set aside, not that anything is running.",
-    "The IMF raised concerns in May 2025 (Cointelegraph), and talks continued (Arab News, 8 Jul 2025).",
-    "Tribune, 31 Aug 2026: NEPRA's Section 27C prohibitory order bars K-Electric from unannounced or excessive load-shedding and from "
-    "cutting whole feeders on the basis of losses (https://tribune.com.pk/story/2627009).",
-    "Precedent: Google agreed with US utilities to shift or limit machine-learning workloads during grid stress (Google blog, 4 Aug 2025), "
-    "reaching 1 GW of demand response by 19 Mar 2026. Data centers can be the flexible load.",
+    "Express Tribune, 2 Sep 2026: NEPRA ordered K-Electric to end this practice. Very-high-loss feeders averaged 12 h 14 min of "
+    f"outages a day, which the regulator called \"collective punishment\". ({TRIBUNE})",
+    "Dawn, 26 May 2025: 2,000 MW of electricity was announced for Bitcoin mining and AI data centres. "
+    f"It was announced; we do not claim it is running. ({DAWN})",
 ])
 doc.add_paragraph(
-    "These facts are cited as news reports, not independently verified by us. We take no side on the 2,000 MW plan or on K-Electric; "
-    "we make the trade-offs visible. The question the planner answers: at 3 pm in June, when there is not enough power for everyone, "
-    "who gets it: the AI data center, your neighborhood, or the hospital?")
-
-# 2
-doc.add_heading("2. Formulation", 1)
-doc.add_paragraph(
-    f"Blocks: three neighborhoods (N1, N2, N3) and the AI data center (DC). Each block is the same size, one "
-    f"{fmt(get(R, 'mw_per_block'))} MW chunk. The hospital is always on and is not a variable. "
-    f"Hours: {', '.join(HOURS)}. Decision variable: x[b,t] = 1 if block b is switched OFF in hour t. "
-    f"4 blocks x 3 hours = 12 binary variables, so 12 qubits.")
-doc.add_paragraph(
-    "Rule: the plan must cover the shortfall exactly, sum over b of x[b,t] = k_t blocks off in hour t, where k_t is the shortfall in that hour. "
-    "In the QUBO the rule becomes the penalty P * sum over t of (sum over b of x[b,t] - k_t)^2.")
-doc.add_paragraph("Objective (minimize), four terms:")
-bullets([
-    "Fairness (squared dark hours, a pair term): w_f * sum over neighborhoods n of (sum over t of x[n,t])^2.",
-    "No back-to-back darkness (a pair term): w_c * sum over n, t of x[n,t] * x[n,t+1].",
-    "Data-center revenue lost: w_r * sum over t of r_t * x[DC,t], where r_t is the data center's revenue in hour t.",
-    "Economic damage: w_e * sum over n, t of d_n * x[n,t], where d_n is higher for a market area than for homes.",
-])
-doc.add_paragraph("In one line:  minimize  w_f*F(x) + w_c*C(x) + w_r*Rev(x) + w_e*Dmg(x) + P*sum_t(sum_b x[b,t] - k_t)^2,  over x in {0,1}^12.")
-W = get(R, "weights") or {}
-doc.add_paragraph(
-    f"Weights used (synthetic): fairness {fmt(W.get('fairness'))}, back-to-back {fmt(W.get('back_to_back'))}, "
-    f"revenue {fmt(W.get('revenue'))}, damage {fmt(W.get('damage'))}, penalty P = {fmt(W.get('penalty'))}. "
-    "The penalty was validated by brute force over all 4096 bitstrings: the lowest QUBO energy must be a valid plan equal to the constrained optimum.")
-doc.add_paragraph(f"The instance (synthetic, made-up but plausible numbers; not real K-Electric or data-center data). {get(R, 'currency_note') or ''}")
-doc.add_paragraph("Place names (Lyari, Gulshan-e-Iqbal, Saddar, a hypothetical Korangi AI data centre, Civil Hospital, Bin Qasim power station) set the scene; all numbers in this demo are synthetic.")
+    "Our demo case is an Islamabad-style circuit with four switchable blocks and one protected load: I-10 (homes, high loss), "
+    "G-9 (homes), Blue Area (offices & shops), an I-9 AI data centre that can pause, and PIMS hospital, which is always on. "
+    "The code's results file labels the four blocks N1, N2, N3 and DC (its example names are Karachi areas); the mapping is "
+    "N1 = I-10, N2 = G-9, N3 = Blue Area, DC = I-9 AI centre. All area numbers are illustrative, not real utility data.")
 rows = []
 for b in BLOCKS:
     bi = get(R, "block_info", b) or {}
     if bi.get("kind") == "datacenter":
-        rows.append([b, bi.get("name", ""), bi.get("kind", ""), "-", "revenue/hour: " + ", ".join(fmt(x) for x in bi.get("revenue_per_hour", []))])
+        rows.append([b, AREA[b], "-", "revenue/hour: " + ", ".join(fmt(x) for x in bi.get("revenue_per_hour", []))])
     else:
-        rows.append([b, bi.get("name", ""), bi.get("kind", ""), fmt(bi.get("loss_pct")), "damage/hour: " + fmt(bi.get("damage_per_hour"))])
-table(rows, ["Block", "Name", "Kind", "Synthetic loss %", "Synthetic value"])
+        rows.append([b, AREA[b], fmt(bi.get("loss_pct")), "damage/hour: " + fmt(bi.get("damage_per_hour"))])
+table(rows, ["Block", "Area", "Illustrative loss %", "Illustrative value"])
+doc.add_paragraph(f"Each block is one {fmt(R.get('mw_per_block'))} MW chunk. {R.get('currency_note', '')}.")
+
+# 2
+W = R.get("weights") or {}
+doc.add_heading("2. Formulation", 1)
+doc.add_paragraph(
+    f"Decision: x[b,t] = 1 if block b is switched off in hour t. 4 blocks x 3 hours ({', '.join(HOURS)}) = 12 binary variables. "
+    "The hospital is not a variable; it is always on.")
+doc.add_paragraph(
+    "Rule: exactly k_t blocks must be off in hour t, with k = (1, 2, 1) on a normal afternoon. "
+    "The rule is added as a quadratic penalty, so any plan that breaks it scores badly.")
+m = doc.add_paragraph()
+m.add_run(
+    "minimize   w_f Σ_n (Σ_t x[n,t])²  +  w_c Σ_n Σ_t x[n,t]·x[n,t+1]  +  w_r Σ_t r_t·x[DC,t]  +  w_e Σ_n,t d_n·x[n,t]"
+    "  +  P Σ_t (Σ_b x[b,t] − k_t)²,   x ∈ {0,1}¹²").italic = True
+doc.add_paragraph("In plain words, the plan should:")
+bullets([
+    "Fairness: spread dark hours evenly (squaring punishes one area getting many hours).",
+    "Back-to-back: avoid leaving an area dark two hours in a row.",
+    "AI-centre revenue: count the revenue lost when the data centre pauses (r_t per hour).",
+    "Economic damage: count the cost of cutting an area (d_n, higher for offices & shops).",
+    "Exact shortfall: switch off exactly k_t blocks each hour (penalty P).",
+])
+doc.add_paragraph(
+    f"Weights (hand-tuned): fairness {fmt(W.get('fairness'))}, back-to-back {fmt(W.get('back_to_back'))}, "
+    f"revenue {fmt(W.get('revenue'))}, damage {fmt(W.get('damage'))}, penalty P = {fmt(W.get('penalty'))}.")
 
 # 3
-doc.add_heading("3. Why QAOA", 1)
+Qn = get(R, "scenarios", "normal", "qaoa") or {}
+Qd = get(R, "scenarios", "disaster", "qaoa") or {}
+cob_n = get(Qn, "trace", "cobyla", "evaluations")
+cob_d = get(Qd, "trace", "cobyla", "evaluations")
+nparams = get(Qn, "trace", "circuit", "num_params")
+doc.add_heading("3. Quantum method", 1)
 bullets([
-    "Natural fit: fairness and back-to-back darkness are pair (quadratic) terms and the rule is a quadratic penalty, so the problem is already a QUBO. "
-    "That maps directly onto the cost layer of QAOA, with no extra encoding.",
-    "Shallow circuit: reps = 2 on 12 qubits, tuned by a classical COBYLA loop. This suits today's small devices and runs easily on a simulator "
-    "(Qiskit StatevectorSampler, fixed seeds).",
-    "Grover Adaptive Search considered and rejected: tested on a 9-variable version of this kind of problem, it took 71 s, needed 16 qubits and gave an "
-    "invalid answer. It is for future hardware.",
+    f"QAOA through qiskit-optimization, reps = {fmt(Qn.get('reps'))} ({fmt(nparams)} angles), on {fmt(Qn.get('qubits'))} qubits.",
+    f"Classical optimizer: COBYLA, {fmt(Qn.get('restarts'))} restarts; the recorded trace has {fmt(cob_n)} evaluations "
+    f"(normal) and {fmt(cob_d)} (disaster).",
+    f"Simulator: Qiskit StatevectorSampler, {fmt(Qn.get('shots'))} shots, fixed seeds.",
+    "Why QAOA: every decision is on/off and every rule is a pair term or a quadratic penalty, so the problem maps directly "
+    "onto a QAOA cost Hamiltonian with no extra encoding.",
+    "Grover Adaptive Search was tried on a 9-variable version: it needed 16 qubits, took 71 s and returned an infeasible "
+    "answer, so we rejected it.",
 ])
 
 # 4
 doc.add_heading("4. Architecture", 1)
-doc.add_paragraph(
-    "Synthetic Karachi data goes into the QUBO builder (12 binary variables, penalty validated by brute force). QAOA runs on Qiskit's StatevectorSampler "
-    "(reps = 2, COBYLA). The same instance is solved exactly by brute force and by three baselines (today's rule, data center first, greedy). "
-    "Everything is written to results.json and charts, which feed the demo page and this report.")
 png = os.path.join(HERE, "architecture.png")
-if os.path.exists(png):
-    doc.add_picture(png, width=Inches(6.3))
-else:
-    doc.add_paragraph("[architecture.png missing: run report/make_diagram.py]")
+if not os.path.exists(png):
+    png = os.path.join(REPO, "report", "architecture.png")
+doc.add_picture(png, width=Inches(6.3))
+bullets([
+    "Inputs: illustrative area data (loss, damage, AI-centre revenue) and the hourly shortfall for each scenario.",
+    "QUBO builder: turns the four goals and the exact-shortfall rule into one 12-variable quadratic model.",
+    "Solvers: QAOA on the Qiskit simulator, brute force over all 4,096 plans as the exact reference, and three classical "
+    "baselines (today's rule, data centre first, greedy).",
+    "Output: results.json and charts, which feed the web demo and this report.",
+])
 
 # 5
 doc.add_heading("5. Results", 1)
 doc.add_paragraph(
-    "All numbers below are read from web/data/results.json and come from real solver runs on synthetic inputs. Lower objective is better. "
-    "Approximation ratio = exact objective divided by the plan's objective (1.0 is optimal). Max dark hours is the most any one neighborhood is off. "
-    "Back-to-back counts (neighborhood, hour) pairs dark this hour and the next. DC revenue kept is the share of data-center revenue still earned.")
-if not R:
-    doc.add_paragraph("results.json not found: all result values show TBD.")
-NAMES = (("today", "Today's rule"), ("dc_first", "Data center first"), ("greedy", "Greedy"), ("qaoa", "QAOA"), ("exact", "Exact"))
+    "Lower objective is better. Approx. ratio = exact objective / plan objective (1.0 is optimal). "
+    "Max dark hours = the most hours any one area is off.")
+NAMES = (("today", "Today's rule (cut highest losses)"), ("dc_first", "Data centre first"), ("greedy", "Greedy"),
+         ("qaoa", "QAOA"), ("exact", "Exact (brute force)"))
 for sc in ("normal", "disaster"):
     S = get(R, "scenarios", sc) or {}
-    doc.add_heading(get(S, "label") or sc.capitalize() + " scenario", 2)
-    if get(S, "description"):
-        doc.add_paragraph(get(S, "description"))
-    doc.add_paragraph(f"Blocks that must be off per hour (k_t): {fmt(get(S, 'shortfall_blocks'))}")
-    rows = []
-    for k, name in NAMES:
-        P = get(S, "plans", k)
-        rows.append([name, fmt(get(P, "valid")), fmt(get(P, "objective")), fmt(get(P, "approx_ratio")),
-                     fmt(get(P, "max_dark_hours")), fmt(get(P, "back_to_back")),
-                     fmt(get(P, "dc_revenue_kept_pct"), 1) + ("%" if get(P, "dc_revenue_kept_pct") is not None else ""),
-                     fmt(get(P, "economic_damage"))])
-    table(rows, ["Plan", "Valid", "Objective", "Approx. ratio", "Max dark hours", "Back-to-back",
-                 "DC revenue kept", "Economic damage"])
-    table([[n, schedule(get(S, "plans", k))] for k, n in NAMES], ["Plan", "Who is switched off (hour by hour)"])
-    Q = get(S, "qaoa") or {}
+    Q = S.get("qaoa") or {}
+    ec = get(Q, "trace", "exact_check") or {}
+    doc.add_heading(f"{S.get('label', sc)}: k = {tuple(S.get('shortfall_blocks') or [])}", 2)
+    if S.get("description"):
+        doc.add_paragraph(S["description"])
+    table([[n, fmt(get(S, "plans", k, "objective")), fmt(get(S, "plans", k, "approx_ratio")),
+            fmt(get(S, "plans", k, "max_dark_hours")), schedule(get(S, "plans", k))] for k, n in NAMES],
+          ["Plan", "Objective", "Approx. ratio", "Max dark hours", "Who is off"])
     table([
-        ["Qubits / reps / shots", f"{fmt(get(Q, 'qubits'))} / {fmt(get(Q, 'reps'))} / {fmt(get(Q, 'shots'))}"],
-        ["P(optimum), QAOA", fmt(get(Q, "p_opt"), 4)],
-        ["P(optimum), random 12-bit string", fmt(get(Q, "p_opt_random"), 6)],
-        ["P(valid plan), QAOA", fmt(get(Q, "p_feasible"), 4)],
-        ["P(valid plan), random 12-bit string", fmt(get(Q, "p_feasible_random"), 4)],
-        ["Best valid sample equals exact optimum", fmt(get(Q, "found_optimum"))],
-        ["Run time (s) / optimizer restarts", f"{fmt(get(Q, 'seconds'), 1)} / {fmt(get(Q, 'restarts'))}"],
-    ], ["QAOA statistic (" + (get(S, "label") or sc) + ")", "Value"])
+        ["P(optimum): QAOA vs random", f"{fmt(Q.get('p_opt'), 5)} vs {fmt(Q.get('p_opt_random'), 6)}"],
+        ["P(valid plan): QAOA vs random", f"{fmt(Q.get('p_feasible'), 4)} vs {fmt(Q.get('p_feasible_random'), 4)}"],
+        ["QAOA run time", f"{fmt(Q.get('seconds'), 1)} s"],
+        ["QAOA found the optimum", fmt(Q.get("found_optimum"))],
+        ["Exact check", f"{fmt(ec.get('plans_checked'))} plans ({fmt(ec.get('valid_plans'))} valid) in "
+                        f"{fmt(ec.get('seconds'), 3)} s; agrees with QAOA: {fmt(ec.get('agrees'))}"],
+    ], ["QAOA statistic", "Value"])
 
-doc.add_heading("Trade-off sweep (normal scenario)", 2)
-doc.add_paragraph(
-    "The slider on the demo page sweeps the weight on data-center revenue from 'protect homes' to 'protect revenue'. Each row is the exact optimum at that weight.")
-rows = []
-for s in get(R, "sweep") or []:
-    p = s.get("plan") or {}
-    rows.append([s.get("label", ""), fmt(s.get("revenue_weight")), schedule(p), fmt(get(p, "max_dark_hours")),
-                 fmt(get(p, "back_to_back")),
-                 fmt(get(p, "dc_revenue_kept_pct"), 1) + ("%" if get(p, "dc_revenue_kept_pct") is not None else ""),
-                 fmt(get(p, "economic_damage")), fmt(s.get("qaoa_found_optimum")) if s.get("qaoa_found_optimum") is not None else "not run"])
-table(rows, ["Setting", "Revenue weight", "Who is switched off", "Max dark hours", "Back-to-back", "DC revenue kept",
-             "Economic damage", "QAOA found optimum"])
-
-for fn in sorted(glob.glob(os.path.join(ROOT, "results", "*.png"))):
-    picture(os.path.basename(fn), "Figure: " + os.path.basename(fn)[:-4].replace("_", " ") + " (generated from the solver runs).")
-
-# 6
-doc.add_heading("6. Honest limitations", 1)
+N = get(R, "scenarios", "normal", "plans")
+ratio = N["today"]["objective"] / N["exact"]["objective"]
+doc.add_heading("Takeaways", 2)
 bullets([
-    "At 12 decisions a laptop solves this instantly by brute force. Quantum is a natural fit here, not faster today. We claim no quantum speedup.",
-    "All input data is synthetic: plausible, not real K-Electric, NEPRA or data-center data. The instance was tuned so that the baselines visibly do worse than exact.",
-    "Blocks are equal-size 10 MW chunks, a simplification of real feeders and loads.",
-    "The 2,000 MW plan was only partly implemented, according to news reports; the data center in our model is a scenario, not a confirmed facility.",
-    "QAOA's final plan is the best valid sample among the shots, scored classically; see the P(optimum) and P(valid plan) rows above for how often the circuit itself lands on the answer.",
-    "Grover Adaptive Search was tested on a 9-variable version of this kind of problem: it took 71 s, needed 16 qubits and gave an invalid answer. That test is not part of this repository.",
-    "Simulator only: no run on real quantum hardware, so no noise effects were studied.",
+    "QAOA returned the exact optimum in both scenarios (approx. ratio 1.0, confirmed by brute force).",
+    f"Today's rule leaves one area (I-10) dark for {fmt(N['today']['max_dark_hours'])} hours in a row; "
+    f"the fair plan's maximum is {fmt(N['exact']['max_dark_hours'])} hour.",
+    f"Today's rule scores about {ratio:.1f}x worse than the optimum ({fmt(N['today']['objective'])} vs {fmt(N['exact']['objective'])}).",
+    "When a plant trips at 3 pm, the planner re-plans the afternoon and still keeps every area to at most 1 dark hour.",
 ])
 
+# 6
+En = get(R, "scenarios", "normal", "qaoa", "trace", "exact_check") or {}
+doc.add_heading("6. Classical comparison and honesty", 1)
+doc.add_paragraph(
+    f"At 12 variables brute force is faster: it checks all {fmt(En.get('plans_checked'))} plans in {fmt(En.get('seconds'), 3)} s, "
+    f"against about {fmt(Qn.get('seconds'), 0)} s for QAOA on the simulator. We claim no quantum speedup. "
+    "The value is the pipeline and a method that scales: the number of possible plans doubles with every added variable, "
+    "so brute force stops being an option as areas and hours grow. Running on quantum hardware is future work.")
+
 # 7
-doc.add_heading("7. Future work", 1)
+doc.add_heading("7. Limitations", 1)
 bullets([
-    "Real feeder-level load, loss and data-center data from operators, and unequal block sizes.",
-    "More hours and blocks, with better circuits or warm starts as the problem grows.",
-    "Runs on real quantum hardware once the instance outgrows brute force.",
-    "Grover Adaptive Search on future hardware.",
+    "Synthetic, illustrative data, not real feeder data.",
+    f"Equal-size blocks ({fmt(R.get('mw_per_block'))} MW each), a simplification of real feeders.",
+    "Simulator only, not quantum hardware; no noise studied.",
+    "Tiny instance (12 variables).",
+    "Penalty and objective weights are hand-tuned.",
+    "Only part of the announced 2,000 MW plan was implemented; the AI centre here is a scenario, not a confirmed facility.",
 ])
 
 # 8
-doc.add_heading("8. Reproducibility", 1)
-doc.add_paragraph("From the repository root (tested with Python 3.13):")
-for c in ("python -m venv .venv && .venv/bin/pip install -r requirements.txt",
-          "cd src && ../.venv/bin/python -m bijli.run        # writes web/data/results.json and results/*.png",
-          ".venv/bin/python report/make_diagram.py          # architecture.png",
-          ".venv/bin/python report/build_report.py          # this document"):
-    doc.add_paragraph(c, style="List Bullet")
-doc.add_paragraph("Fixed seeds are used for QAOA; versions are pinned in requirements.txt (qiskit 2.6.2, qiskit-optimization 0.7.0).")
+doc.add_heading("8. Extensions and future work", 1)
+bullets([
+    "Done: plant-trip re-planning (the disaster scenario above).",
+    "Done: trade-off sweep \"protect homes ↔ protect AI revenue\" (table below; each row is the exact optimum at that weight).",
+    "Next: an XY (rule-preserving) mixer so QAOA only explores valid plans.",
+    "Next: more areas and hours; real feeder data; runs on IBM quantum hardware.",
+])
+rows = []
+for s in R.get("sweep") or []:
+    p = s.get("plan") or {}
+    kept = get(p, "dc_revenue_kept_pct")
+    rows.append([s.get("label", ""), fmt(s.get("revenue_weight")), schedule(p), fmt(get(p, "max_dark_hours")),
+                 fmt(kept, 1) + ("%" if kept is not None else ""), fmt(s.get("qaoa_found_optimum"))])
+table(rows, ["Setting", "Revenue weight", "Who is off", "Max dark hours", "AI revenue kept", "QAOA found optimum"])
 
 # 9
-doc.add_heading("9. Credits", 1)
-doc.add_paragraph(
-    "Built with Qiskit, qiskit-optimization, matplotlib and python-docx. Code was written with AI assistance (Claude Code). "
-    "Google's published work on shifting flexible ML load is the idea precedent.")
+doc.add_heading("9. Reproducibility", 1)
+doc.add_paragraph("Repository: https://github.com/wajih-rathore/who-gets-the-power. From the repository root (Python 3.13, "
+                  "qiskit 2.6.2, qiskit-optimization 0.7.0, pinned in requirements.txt):")
+for c in ("python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt",
+          "PYTHONPATH=src python -m bijli.run      # writes web/data/results.json and results/*.png, about 2-3 minutes",
+          "PYTHONPATH=src pytest -q                # tests",
+          "python report/build_report.py   # .docx report (diagram: report/architecture.html, rendered to architecture.png)",
+          "python -m http.server -d web 8000       # demo, then open http://localhost:8000"):
+    para = doc.add_paragraph(style="List Bullet")
+    r = para.add_run(c)
+    r.font.name = "Consolas"
+    r.font.size = Pt(9)
+
+# 10
+doc.add_heading("10. References", 1)
+bullets([
+    f"Express Tribune, 2 Sep 2026. NEPRA orders K-Electric to end load-shedding. {TRIBUNE}",
+    f"Dawn, 26 May 2025. 2,000 MW announced for Bitcoin mining and AI data centres. {DAWN}",
+])
 
 out = os.path.join(HERE, "WhoGetsThePower_Report.docx")
 doc.save(out)

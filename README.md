@@ -4,6 +4,10 @@ A fair, transparent planner for a hot-afternoon power shortage. *Qiskit Fall Fes
 
 **Live demo:** https://who-gets-the-power.vercel.app (the static page in `web/`, showing the committed `results.json`)
 
+**Video demo:** https://who-gets-the-power-demo.vercel.app (`web/demo/index.html`, the two-screen planner shown in the video; same results, with the four blocks shown as Islamabad areas)
+
+**Report:** [`report/WhoGetsThePower_Report.pdf`](report/WhoGetsThePower_Report.pdf)
+
 When Karachi does not have enough electricity for everyone, someone has to be switched off each hour: a neighborhood, or the AI/crypto data center. Hospitals are never switched off. Our planner decides who goes dark each hour, keeps dark hours fair between neighborhoods, avoids leaving any area dark hours in a row, and treats the data center as the flexible load that pauses first while still weighing the revenue it brings. We write the decision as a 12-qubit optimization problem, solve it with QAOA in Qiskit, and check it against the exact best plan from brute force. A slider shows the trade-off (protect homes vs protect data-center revenue) and a disaster button switches to the plan solved for when a power plant trips.
 
 ## The hook
@@ -56,7 +60,7 @@ python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
 ```bash
 PYTHONPATH=src python -m bijli.run      # writes web/data/results.json and results/*.png, about 2-3 minutes
 PYTHONPATH=src pytest -q                # tests
-python report/make_diagram.py && python report/build_report.py   # architecture diagram + .docx report
+python report/build_report.py   # architecture diagram + .docx report
 python -m http.server -d web 8000       # demo, then open http://localhost:8000
 ```
 

@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1600px;height:900px;background:#fbfaf7;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#1f2326;padding:44px 40px 0;position:relative}
+h1{font-size:38px;font-weight:750;letter-spacing:-.5px}
+h1 span{color:#f2a516}
+.sub{font-size:17px;color:#5b6166;margin-top:6px}
+.row{display:flex;align-items:center;margin-top:46px;height:640px}
+.box{width:222px;background:#fff;border:2px solid #1f2326;border-radius:14px;padding:18px 16px;font-size:16.5px;line-height:1.42}
+.box h2{font-size:19.5px;font-weight:700;margin-bottom:8px;display:flex;gap:8px;align-items:baseline}
+.n{display:inline-flex;width:24px;height:24px;border-radius:50%;background:#f2a516;color:#1f2326;font-size:13px;font-weight:800;align-items:center;justify-content:center;flex:none}
+.box ul{padding-left:16px}.box li{margin-bottom:5px}
+.arrow{width:32px;display:flex;justify-content:center;font-size:42px;color:#f2a516;font-weight:700}
+.q{border-color:#f2a516;border-width:3px}
+.col{display:flex;flex-direction:column;align-items:center;width:222px}
+.col .box{width:222px}
+.tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#b07400;margin-bottom:6px;align-self:flex-start}
+.loop{display:flex;justify-content:space-between;width:150px;height:70px;font-size:15px;color:#b07400;font-weight:600}
+.loop div{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.loop b{font-size:32px;color:#f2a516;line-height:1}
+.green{border-color:#1c7a5c;border-width:3px;background:#f2f9f6}
+.green h2{color:#1c7a5c}.green .n{background:#1c7a5c;color:#fff}
+code{font-family:ui-monospace,"DejaVu Sans Mono",monospace;font-size:14px;background:#f4efe3;padding:0 3px;border-radius:3px}
+.foot{position:absolute;bottom:22px;left:40px;right:40px;font-size:14px;color:#6b7176;border-top:1px solid #e3e0d8;padding-top:10px}
+</style></head><body>
+<h1>Who Gets the Power? <span>System architecture</span></h1>
+<div class="sub">Fair load-shedding during a power shortfall, solved with Qiskit QAOA and checked classically.</div>
+<div class="row">
+
+<div class="box"><h2><span class="n">1</span>Inputs</h2><ul>
+<li>4 areas: 3 neighbourhoods + an AI data centre that can pause</li>
+<li>3 peak hours</li>
+<li>Shortfall per hour: 1, 2, 1 areas off</li>
+<li>Hospital always on</li></ul></div>
+<div class="arrow">&rarr;</div>
+
+<div class="box"><h2><span class="n">2</span>Problem builder (QUBO)</h2>
+<p style="margin-bottom:7px">12 binary variables <code>x[area,hour]</code> = 1 if off. Rules become penalties:</p><ul>
+<li>Exact shortfall per hour (big penalty)</li>
+<li>Fairness: squared dark hours</li>
+<li>No back-to-back cuts</li>
+<li>AI-centre revenue</li>
+<li>Economic damage</li></ul></div>
+<div class="arrow">&rarr;</div>
+
+<div class="col"><div class="tag">3 · Quantum loop (Qiskit)</div>
+<div class="box q"><h2><span class="n">Q</span>QAOA circuit</h2><ul>
+<li>12 qubits, 2 layers</li><li>Runs on StatevectorSampler</li></ul></div>
+<div class="loop"><div><b>&uarr;</b>angles</div><div><b>&darr;</b>energy</div></div>
+<div class="box"><h2><span class="n">C</span>Classical optimizer</h2><ul>
+<li>COBYLA tunes the 4 angles</li><li>42 evaluations, 3 restarts</li></ul></div></div>
+<div class="arrow">&rarr;</div>
+
+<div class="box"><h2><span class="n">4</span>Measure &amp; decode</h2><ul>
+<li>1,024 shots</li>
+<li>Bitstrings &rarr; plans</li>
+<li>Keep the best plan that follows the rules</li></ul></div>
+<div class="arrow">&rarr;</div>
+
+<div class="box green"><h2><span class="n">5</span>Classical check &amp; baselines</h2><ul>
+<li>Brute force over all 4,096 plans gives the same optimum</li>
+<li>Baselines: today's rule (highest loss first), greedy, AI-centre-first</li></ul></div>
+<div class="arrow">&rarr;</div>
+
+<div class="box"><h2><span class="n">6</span>Output</h2>
+<p style="margin-bottom:7px"><code>results.json</code> &rarr; web app, two screens:</p><ul>
+<li><b>Today's plan</b>: power towers + Gantt</li>
+<li><b>How quantum chose it</b>: Set up &rarr; Tune &rarr; Measure &rarr; Check</li></ul></div>
+
+</div>
+<div class="foot">Qiskit 2.x · qiskit-optimization QAOA · COBYLA · StatevectorSampler</div>
+</body></html>

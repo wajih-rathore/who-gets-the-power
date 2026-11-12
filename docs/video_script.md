@@ -1,33 +1,55 @@
-# Who Gets the Power?: 3-minute video script
+# Who Gets the Power? Final video script (about 2:05). Record from http://192.168.20.64:8803/v3/
+Before recording: open v3 at full screen, and click **Today's rule** in the right-hand switch so the take starts there.
 
-Read aloud by the team over the six stages of the demo, about 280 spoken words (about 2:10, leaving room for the map animations). The narration is the team's own wording; keep it word for word. Numbers come from `web/data/results.json` (normal scenario). This story, its places and its numbers are made up for the demo (the loss percentages are synthetic). The quantum run took 27 seconds on a simulator; say so if asked. Open the page at stage 1: https://who-gets-the-power.vercel.app/#step=1
+## 1. Hook (0:00–0:15)
+[Black screen, or your face. On-screen text: "12 h 14 min"]
+"12 hours and 14 minutes. That's how long some Karachi neighbourhoods went without power, on average, every day.
+This year the regulator, NEPRA, called it collective punishment.
+Meanwhile Pakistan announced 2,000 megawatts for Bitcoin and AI data centres.
+Machines can pause. People can't. So when there isn't enough power, who gets it?"
+[Small text: Express Tribune, 2 Sep 2026 · Dawn, 26 May 2025]
 
-## ① The shortfall
-[SCREEN: Stage 1. Power flows from the power station; the plugs per hour grey out.]
+## 2. Today's rule (0:15–0:30)
+[Still the hook background, or your face]
+"Today the company checks every area: how much power we sent, and how much got paid for. The bigger the gap, the more cuts.
+But in that area, the families who pay sit in the dark too.
+So it's not about who needs power. It's about which street you live on."
 
-"It's a hot afternoon in Karachi, and everyone switches on their fans at once. The power station can't keep up: there's only enough electricity for 3 of our 4 places at 2 o'clock, and just 2 of them at 3. Someone has to wait in the dark."
+## 3. The deficit (0:30–0:45)
+[v3 "Today's plan", Today's rule selected. Point at the towers chart.]
+"This is our planner. The city needs 50 megawatts. The grid can send 40, then 30, then 40. Anything above the line goes dark.
+The green block at the bottom is the hospital. It never goes off. In 2011, Karachi's biggest public hospital, JPMC, went 13 hours without power, and its backup generators had no diesel."
 
-## ② Today's rule
-[SCREEN: Stage 2. Lyari's line cuts at 2, 3 and 4.]
+## 4. Rule vs fair plan (0:45–1:05)
+[Point at the "Hours in the dark" chart: I-10's long bar]
+"With today's rule, I-10 is dark three hours straight."
+[Click **Fair plan ★**. The blocks move and the long bar breaks into short pieces.]
+"Our plan: everyone takes one short turn, and the AI centre pauses for an hour. The longest wait drops from 3 hours to 1."
+[Optional, 5 s: click **⚡ Plant trips at 3 pm**] "And if a plant trips, it re-plans instantly."
+[Click **How did quantum choose this? →**]
 
-"Today, K-Electric ranks areas by how much electricity is lost there: stolen, or never paid for. The highest-loss areas are cut first and longest. With Lyari losing the most, Lyari goes dark at 2, at 3 and at 4: three hours straight, even for the families who do pay."
+## 5. Quantum: set up (1:05–1:15)
+[Step ① Set up]
+"4 areas times 3 hours is 12 on/off switches, and 4,096 possible plans. Each switch is a qubit. Every rule becomes a penalty. QAOA is built for exactly this: find the lowest penalty."
 
-## ③ Switches → qubits
-[SCREEN: Stage 3. The 12-switch grid.]
+## 6. Tune (1:15–1:25)
+[Click **Next** → ② Tune]
+"A normal optimizer turns QAOA's 4 dials over 42 tries. It jumps around, then settles: the penalty falls from about 125 to 53."
 
-"Each place can be on or off in each hour. Four places over three hours gives 12 on/off switches, and 4,096 ways to set them. On a quantum computer, each switch is a qubit."
+## 7. Measure (1:25–1:40)
+[Click **Next** → ③ Measure. Click **Before tuning (random)**, then **After tuning (QAOA)**, and stay silent for 2 seconds while the wall fills.]
+"We measure 1,024 times. Before tuning, only 2% of plans follow the rules. After tuning, 46%, and the best plan shows up 9 times, where luck gives less than once."
 
-## ④ Quantum search
-[SCREEN: Stage 4. The "23× better than guessing" bar and the small curve.]
+## 8. Check (1:40–1:58)
+[Click **Next** → ④ Check]
+"Can we trust it? A normal computer checked all 4,096 plans: same answer. Today's rule scores almost twice as bad.
+Honestly, at this size a laptop is faster. But every new switch doubles the plans, and real cities have thousands. That's where quantum is heading."
 
-"We use QAOA, a quantum algorithm built for choose-the-best-combination problems like this one. A regular optimizer tunes the quantum circuit over 42 rounds so fair schedules come up more often. By the end, the best schedule shows up about 23 times more often than by guessing."
+## 9. Close (1:58–2:05)
+[Your face, or back to the Fair plan screen]
+"Same power. Fairer darkness. Who gets the power shouldn't depend on which street you live on."
+[End card: team names, GitHub link, "numbers in the demo are illustrative"]
 
-## ⑤ Quantum vs classical
-[SCREEN: Stage 5. The comparison table: today's rule, quick rule, classical, quantum.]
-
-"A classical computer can solve this small case the sure way: try all 4,096 plans. It takes 0.035 seconds and agrees with the quantum answer. Quick rules of thumb do worse. But every extra switch doubles the plans: a city with 100 areas over a full day has more possible plans than there are atoms in the universe. That's the scale quantum computers are being built for."
-
-## ⑥ The fair plan
-[SCREEN: Stage 6. The plan plays across the hours; then press "What if a power station breaks down?"]
-
-"Now everyone takes a short, fair turn. No neighbourhood is dark for more than an hour, nobody goes dark twice in a row, the hospital always stays on, and the big AI computer centre takes a break at 4 to help out."
+---
+Hospital line source: Express Tribune, Sep 2011, https://tribune.com.pk/story/251486/four-die-as-power-cut-to-jinnah-hospital
+Four ventilator patients died during that outage, but the hospital said it "cannot say anything with certainty" about the cause. Say "13 hours without power, generators had no diesel", and do NOT say the outage killed them.

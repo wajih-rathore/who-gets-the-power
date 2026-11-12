@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Who Gets the Power? · IESCO Islamabad</title>
+<meta name="viewport" content="width=1280">
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--bg:#f3f1ec;--ink:#1d1d1b;--muted:#6b665c;--line:#e4dfd4;--amber:#f2a516;--off:#33373b;--green:#1c7a5c;--greenbg:#c6ebdd;--red:#b5321e;--side:#1f2326;--shadow:0 1px 2px rgba(60,45,20,.06),0 6px 18px rgba(60,45,20,.06)}
+body{font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);display:grid;grid-template-columns:216px 1fr;height:100vh;overflow:hidden;font-variant-numeric:tabular-nums}
+::selection{background:#f9dc9c}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+
+aside{background:var(--side);color:#e9e6df;padding:22px 12px;display:flex;flex-direction:column;gap:2px}
+.brand{padding:0 10px 24px}
+.brand b{display:block;font-size:16px;letter-spacing:-.01em}
+.brand small{color:#8e8a82;font-size:12.5px}
+aside a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:#cfcac0;text-decoration:none;font-size:14.5px}
+aside a::before{content:"";width:6px;height:6px;border-radius:50%;background:transparent}
+aside a:hover{background:#292e32}
+aside a.on{background:#30353a;color:#fff;font-weight:600}
+aside a.on::before{background:var(--amber)}
+aside hr{border:0;border-top:1px solid #353b40;margin:16px 10px 12px}
+.refh{font-size:12.5px;color:#77736b;padding:0 10px 4px}
+.ref{padding:7px 10px 7px 26px;color:#6c6861;font-size:14px;cursor:default;user-select:none}
+
+main{display:flex;flex-direction:column;min-width:0;min-height:0}
+header{height:58px;flex:none;display:flex;align-items:center;gap:16px;padding:0 28px;border-bottom:1px solid var(--line)}
+header h1{font-size:19px;font-weight:650;letter-spacing:-.01em;margin-right:auto}
+.when{color:var(--muted);font-size:14px}
+.pill{font-size:12px;padding:3px 10px;border-radius:99px;background:#ebe3cf;color:#6b5a2e;font-weight:600}
+section{display:none;flex:1;min-height:0;padding:16px 28px 20px;flex-direction:column;gap:14px}
+section.on{display:flex}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.lab{font-size:14px;color:var(--muted)}
+.ttl{font-size:15.5px;font-weight:650}
+
+/* screen 1 */
+.problem{background:#fdf1d6;color:#3d2f0c;border-radius:12px;padding:10px 18px;font-size:16px;transition:background .3s}
+.problem.trip{background:#f8dcd3;color:#4a1a10}
+.plan{flex:1;min-height:0;display:grid;grid-template-columns:1fr 360px;gap:20px}
+.left{display:flex;flex-direction:column;gap:14px;min-height:0}
+.tcard{padding:14px 20px 12px;display:flex;flex-direction:column;gap:6px}
+.towers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:6px}
+.col{display:flex;flex-direction:column;align-items:center;gap:6px}
+.col.ctx{opacity:.55}
+.stack{position:relative;width:100%;max-width:112px;height:230px}
+.blk{position:absolute;left:0;right:0;height:42px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#fde9bf;color:#5a3d00;transition:bottom .6s cubic-bezier(.2,.8,.2,1),background .4s,color .4s}
+.blk.pims{background:var(--greenbg);color:#145a44;bottom:0}
+.blk.off{background:repeating-linear-gradient(135deg,#33373b 0 7px,#41464b 7px 14px);color:#f3f1ec}
+.cap-line{position:absolute;left:-7px;right:-7px;height:0;border-top:3px solid var(--ink);transition:bottom .6s cubic-bezier(.2,.8,.2,1)}
+.cap-line span{position:absolute;right:6px;top:-11px;font-size:11px;font-weight:700;color:#fff;background:#1f2326;padding:1px 7px;border-radius:9px;white-space:nowrap;z-index:2}
+.hr{font-size:14px;font-weight:650}
+.col.ctx .hr{font-weight:400;color:var(--muted)}
+.capt{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+.gcard{padding:12px 20px 14px}
+.g{display:grid;grid-template-columns:150px 1fr 104px;align-items:center;column-gap:12px;font-size:14px}
+.g .gh{font-size:12.5px;color:var(--muted)}
+.gx{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.track{position:relative;height:20px;margin:3px 0;background:linear-gradient(90deg,#f4f1ea 33.2%,#fff 33.2% 33.5%,#f4f1ea 33.5% 66.5%,#fff 66.5% 66.8%,#f4f1ea 66.8%);border-radius:5px}
+.track i{position:absolute;top:0;bottom:0;background:var(--off);border-radius:5px;margin:0 2px}
+.red{color:var(--red);font-weight:700}
+
+.side{padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#e8e4da;border-radius:10px;padding:3px}
+.seg button{border:0;background:none;font-size:15px;padding:9px;border-radius:8px;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--ink);font-weight:650;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.big{display:flex;align-items:baseline;gap:14px;margin-top:2px}
+.n{font-size:50px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.n.bad{color:var(--red)}.n.good{color:var(--green)}
+.vs{font-size:14px;color:var(--muted)}
+.why{font-size:14.5px;color:#48443d}
+.trip{width:100%;border:1.5px solid #d9d2c3;background:#faf8f3;border-radius:11px;font-weight:650;font-size:14.5px;padding:10px}
+.trip:hover{border-color:#bfb6a3}
+.trip.on{background:#4a1a10;border-color:#4a1a10;color:#fff}
+.cta{margin-top:auto}
+.btn{width:100%;border:0;border-radius:11px;background:var(--amber);color:var(--ink);font-weight:650;font-size:15px;padding:13px 10px;white-space:nowrap;box-shadow:0 1px 0 rgba(0,0,0,.08),0 4px 14px rgba(242,165,22,.32);transition:background .3s,color .3s}
+.btn:hover{background:#f5b235}
+.btn.done{background:var(--green);color:#fff;box-shadow:none;cursor:default}
+.link{display:block;text-align:center;margin-top:8px;color:var(--green);font-size:14px;font-weight:600;text-decoration:none;text-underline-offset:3px}
+.link:hover{text-decoration:underline}
+
+/* screen 2 */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.steps button{border:1px solid var(--line);background:#faf8f3;border-radius:10px;padding:10px;font-size:15px;font-weight:600;color:var(--muted)}
+.steps button.done{color:var(--ink)}
+.steps button.on{background:var(--side);border-color:var(--side);color:#fff}
+.body{flex:1;min-height:0;padding:22px 26px;display:flex}
+.pane{display:none;flex:1;flex-direction:column;gap:14px;min-width:0}
+.pane.on{display:flex}
+.pane h2{font-size:22px;letter-spacing:-.015em}
+.pane p{font-size:15.5px;color:#48443d;max-width:820px}
+.nav{display:flex;align-items:center;gap:10px}
+.nav span{margin-right:auto;color:var(--muted);font-size:14px}
+.nav button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 22px;font-weight:600}
+.nav button.next{background:var(--amber);border-color:var(--amber)}
+.nav button:disabled{opacity:.35;cursor:default}
+/* ① */
+.setup{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;flex:1}
+.qg{display:grid;grid-template-columns:110px repeat(3,58px);gap:10px 8px;align-items:center;font-size:14px}
+.qg .hh{text-align:center;color:var(--muted);font-weight:600}
+.qb{width:46px;height:46px;border-radius:50%;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);justify-self:center;background:#faf8f3}
+.rules{display:flex;flex-direction:column;gap:10px}
+.rules div{display:flex;justify-content:space-between;gap:16px;padding:11px 16px;border-radius:10px;background:#f6f3ec;font-size:15px}
+.rules b{font-size:13px;padding:2px 10px;border-radius:99px;align-self:center;white-space:nowrap}
+.fits{background:#dff2ea;color:#0f4a37;border-radius:12px;padding:12px 16px;font-weight:600}
+/* ② */
+.tune{flex:1;min-height:0}
+.tune svg{width:100%;height:100%;max-height:340px}
+.tune text{font:12.5px system-ui,sans-serif;fill:#6b665c}
+.facts{font-size:13px;color:var(--muted)}
+/* ③ */
+.measure{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
+.wallbox{display:flex;flex-direction:column;gap:10px}
+.runs{display:flex;gap:8px}
+.runs button{flex:1;font-size:14px;font-weight:600;padding:9px 8px;border-radius:10px;border:1px solid var(--line);background:#faf8f3}
+.runs button.on{background:var(--side);color:#fff;border-color:var(--side)}
+.wall{display:grid;grid-template-columns:repeat(48,10px);gap:2px}
+.wall i{width:10px;height:10px;border-radius:2px;background:#efebe3}
+.wall i.x{background:#c4bfb4}.wall i.v{background:#6cc39f}.wall i.b{background:var(--amber);box-shadow:0 0 0 1.5px #b36b00}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.stats{display:flex;flex-direction:column;gap:14px}
+.stat{padding:14px 18px;border-radius:12px;background:#f6f3ec}
+.stat .num{font-size:46px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:2px 0}
+.stat .sub{font-size:13px;color:var(--muted)}
+.verdict{font-size:13px;font-weight:650;padding:3px 10px;border-radius:99px;background:#fdf0d2;color:#7a5200;margin-left:8px}
+.verdict.no{background:#efece6;color:#5d584f}.verdict.ok{background:#dff2ea;color:#145a44}
+/* ④ */
+.bars{display:flex;flex-direction:column;gap:9px;max-width:820px}
+.bar{display:grid;grid-template-columns:230px 1fr;align-items:center;gap:14px;font-size:14.5px}
+.bar div{height:28px;border-radius:6px;background:#d9d3c6;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-weight:650;font-size:13.5px;color:#3d3a34}
+.bar.best div{background:var(--green);color:#fff}
+.agree{background:#dff2ea;color:#0f4a37;border-radius:12px;padding:12px 16px;font-weight:600;max-width:820px}
+.honest{font-size:14px;color:var(--muted);max-width:820px}
+</style></head>
+<body>
+<aside>
+ <div class="brand"><b>⚡ Who Gets the Power?</b><small>IESCO Islamabad</small></div>
+ <a href="#plan">Today's plan</a>
+ <a href="#quantum">How quantum chose it</a>
+ <hr>
+ <div class="refh">Reference</div>
+ <div class="ref" aria-disabled="true">Areas</div>
+ <div class="ref" aria-disabled="true">Alarms</div>
+ <div class="ref" aria-disabled="true">Reports</div>
+ <div class="ref" aria-disabled="true">Settings</div>
+</aside>
+<main>
+ <header><h1 id="title">Today's plan</h1><span class="when">Thu 11 Jun · 1:42 pm</span></header>
+
+ <section id="plan">
+  <div class="problem" id="problem"></div>
+  <div class="plan">
+   <div class="left">
+    <div class="card tcard">
+     <div class="ttl">Needed: 50 MW. Who fits under the line?</div>
+     <div class="towers" id="towers"></div>
+     <div class="capt">Each block = one area (about 10 MW). Line = power the national grid can send that hour. Anything above the line must go dark.</div>
+    </div>
+    <div class="card gcard">
+     <div class="g"><span class="ttl">Hours in the dark</span><div class="gx lab"><span>2 pm</span><span>3 pm</span><span>4 pm</span></div><span></span></div>
+     <div id="gantt"></div>
+    </div>
+   </div>
+   <div class="side card">
+    <div class="seg" id="seg"><button data-p="rule" onclick="setPlan('rule')">Today's rule</button><button data-p="fair" onclick="setPlan('fair')">Fair plan ★</button></div>
+    <div>
+     <div class="lab">Longest time an area stays dark</div>
+     <div class="big"><span class="n" id="big"></span><span class="vs" id="vs"></span></div>
+    </div>
+    <p class="why" id="why"></p>
+    <button class="trip" id="trip" onclick="setTrip(!trip)"></button>
+    <div class="cta">
+     <button class="btn" id="approve" onclick="approve()">Approve fair plan · notify 35,700 customers</button>
+     <a class="link" href="#quantum">How did quantum choose this? →</a>
+    </div>
+   </div>
+  </div>
+ </section>
+
+ <section id="quantum">
+  <div class="steps" id="steps"><button onclick="step(0)">① Set up</button><button onclick="step(1)">② Tune</button><button onclick="step(2)">③ Measure</button><button onclick="step(3)">④ Check</button></div>
+  <div class="card body">
+   <div class="pane">
+    <h2>12 qubits = 12 on/off switches.</h2>
+    <p>Each switch answers one question: is this area off at this hour? The city's rules become penalties, and the best plan is the one with the lowest total.</p>
+    <div class="setup">
+     <div class="qg" id="qg"></div>
+     <div class="rules">
+      <div>Wrong number of areas off<b style="background:#f8dcd3;color:#7a1f10">big penalty</b></div>
+      <div>Same area dark twice in a row<b style="background:#fdf0d2;color:#7a5200">penalty</b></div>
+      <div>Unfair share of dark hours<b style="background:#fdf0d2;color:#7a5200">penalty</b></div>
+      <div>Pausing the AI centre<b style="background:#efece6;color:#5d584f">small cost</b></div>
+     </div>
+    </div>
+    <div class="fits">QAOA is made for yes/no problems with penalties, so it fits.</div>
+   </div>
+   <div class="pane">
+    <h2>Tune: the optimizer explores, then settles on a low penalty.</h2>
+    <p>A normal computer turns the circuit's 4 dials over 42 tries. Early tries jump around; it ends at an average penalty of 52.9, down from 124.6 at the start. Best of 3 restarts kept.</p>
+    <div class="tune" id="tune"></div>
+    <div class="facts">QAOA, 2 layers · 4 dials · COBYLA optimizer · normal afternoon</div>
+   </div>
+   <div class="pane">
+    <h2>Measure: 1,024 answers, each one a full plan.</h2>
+    <p>Before tuning, the circuit guesses at random. After tuning, most answers follow the rules and the best plan shows up again and again.</p>
+    <div class="measure">
+     <div class="wallbox">
+      <div class="runs"><button onclick="play(false)">Before tuning (random)</button><button onclick="play(true)">After tuning (QAOA)</button></div>
+      <div class="wall" id="wall"></div>
+      <div class="legend"><span><i style="background:#c4bfb4"></i>breaks a rule</span><span><i style="background:#6cc39f"></i>follows the rules</span><span><i style="background:var(--amber)"></i>the best fair plan</span></div>
+      <div class="lab"><span id="shotno">Press a button to replay</span><span class="verdict" id="verdict" hidden></span></div>
+     </div>
+     <div class="stats">
+      <div class="stat"><div class="lab">Follow the rules</div><div class="num" id="pv">—</div><div class="sub" id="pvn">45.9% after tuning · 2.3% random</div></div>
+      <div class="stat"><div class="lab">Best plan found</div><div class="num" id="pb">—</div><div class="sub" id="pbn">in 1,024 answers · pure luck ≈ 0.25</div></div>
+     </div>
+    </div>
+   </div>
+   <div class="pane">
+    <h2>Can we trust it?</h2>
+    <p>Penalty score of each plan for the normal afternoon (lower = better).</p>
+    <div class="bars" id="bars"></div>
+    <div class="agree">A normal computer checked all 4,096 plans in 0.035 s and found the same plan, so QAOA found the true best.</div>
+    <p class="honest">At this size a laptop is faster. Real cities have hundreds of areas × 24 hours, and the plans double with every decision; that's the scale quantum optimization is aiming for.</p>
+   </div>
+  </div>
+  <div class="nav"><span id="stepno"></span><button id="back" onclick="step(cur-1)">← Back</button><button class="next" id="next" onclick="step(cur+1)">Next →</button></div>
+ </section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id),$$=s=>document.querySelectorAll(s);
+const AREAS={l:"I-10",g:"G-9",s:"Blue Area",a:"AI centre"};
+const KEYS=["l","g","s","a"],H=["2 pm","3 pm","4 pm"];
+// from results.json scenarios.<s>.plans: rule = "today", fair = "qaoa" (= "exact"). l=N1 I-10, g=N2 G-9, s=N3 Blue Area, a=DC I-9 AI centre
+const SC={
+ normal:{short:[1,2,1],rule:{l:[1,1,1],g:[0,1,0],s:[0,0,0],a:[0,0,0]},fair:{l:[0,1,0],g:[0,1,0],s:[1,0,0],a:[0,0,1]},
+  why:{rule:"I-10 is cut every hour, even families who pay their bills.",fair:"Everyone takes one short turn; the AI centre pauses its work for an hour."}},
+ trip:{short:[1,3,1],rule:{l:[1,1,1],g:[0,1,0],s:[0,1,0],a:[0,0,0]},fair:{l:[0,1,0],g:[0,1,0],s:[0,1,0],a:[1,0,1]},
+  why:{rule:"I-10 is still cut every hour, and the lost plant adds G-9 and Blue Area at 3 pm.",fair:"No home is dark twice; the AI centre pauses at 2 and 4 pm so homes get a break."}}};
+const hourList=P=>[0,1,2].map(h=>KEYS.filter(k=>P[k][h]));
+for(const s of Object.values(SC))for(const p of ["rule","fair"])hourList(s[p]).forEach((o,h)=>console.assert(o.length==s.short[h],'plan must switch off exactly the shortfall'));
+
+// screen 1
+const COLS=["1 pm","2 pm","3 pm","4 pm","5 pm"],PITCH=46;
+let plan='fair',trip=false;
+$('towers').innerHTML=COLS.map((c,j)=>`<div class="col${j%4?'':' ctx'}"><div class="stack"><div class="blk pims">PIMS</div>${KEYS.map(k=>`<div class="blk" id="b${j}${k}"></div>`).join('')}<div class="cap-line" id="ln${j}">${j==0?'<span>power available</span>':''}</div></div><div class="hr">${c}</div></div>`).join('');
+function setPlan(p){plan=p;render()}
+function setTrip(t){trip=t;render()}
+function longest(P){return Math.max(...KEYS.map(k=>{let r=0,m=0;P[k].forEach(x=>{r=x?r+1:0;m=Math.max(m,r)});return m}))}
+function render(){const S=SC[trip?'trip':'normal'],P=S[plan];
+ $$('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.p==plan));
+ $('problem').className='problem'+(trip?' trip':'');
+ $('problem').innerHTML=`<b>${trip?'A power plant trips at 3 pm.':'Not enough power from 2 to 5 pm.'}</b> Switch off ${S.short.map((n,h)=>`${n} area${n>1?'s':''} at ${H[h]}`).join(' · ')}. PIMS hospital always stays on.`;
+ COLS.forEach((c,j)=>{const h=j-1,inPlan=h>=0&&h<3,off=inPlan?KEYS.filter(k=>P[k][h]):[],order=[...KEYS.filter(k=>!off.includes(k)),...off];
+  order.forEach((k,i)=>{const b=$('b'+j+k),o=off.includes(k);b.style.bottom=(i+1)*PITCH+'px';b.classList.toggle('off',o);b.textContent=AREAS[k]+(o?' · off':'')});
+  const av=inPlan?5-S.short[h]:5;$('ln'+j).style.bottom=(av*PITCH-3)+'px';$('ln'+j).innerHTML=`<span>${av*10} MW</span>`});
+ $('gantt').innerHTML=KEYS.map(k=>{let bars='',run=0,tot=0,max=0;for(let h=0;h<=3;h++){if(h<3&&P[k][h]){run++;tot++}else{if(run)bars+=`<i style="left:${(h-run)/3*100}%;width:calc(${run/3*100}% - 4px)"></i>`;max=Math.max(max,run);run=0}}
+  return `<div class="g"><span>${k=='a'?'I-9 AI centre':AREAS[k]}</span><div class="track">${bars}</div><span class="gh">${max>1?`<span class="red">${max} h in a row</span>`:tot?tot+' h':'stays on'}</span></div>`}).join('');
+ const m=longest(P),other=longest(S[plan=='fair'?'rule':'fair']);
+ $('big').className='n '+(m>1?'bad':'good');$('big').textContent=m+' h';
+ $('vs').textContent=(plan=='fair'?"today's rule: ":"fair plan: ")+other+' h';
+ $('why').textContent=S.why[plan];
+ $('trip').classList.toggle('on',trip);$('trip').textContent=trip?'↩ Back to a normal afternoon':'⚡ Plant trips at 3 pm'}
+function approve(){const b=$('approve');b.classList.add('done');b.disabled=true;b.textContent='✓ Published · 35,700 customers notified'}
+render();
+
+// screen 2: stepper
+let cur=0;
+function step(n){cur=Math.max(0,Math.min(3,n));$$('.pane').forEach((p,i)=>p.classList.toggle('on',i==cur));
+ $$('#steps button').forEach((b,i)=>{b.classList.toggle('on',i==cur);b.classList.toggle('done',i<cur)});
+ $('stepno').textContent=`Step ${cur+1} of 4`;$('back').disabled=cur==0;$('next').disabled=cur==3}
+step(0);
+
+// ① qubit grid: q0..q11 in results.json qubit_map order (area-major, then hour)
+$('qg').innerHTML='<span></span>'+H.map(h=>`<span class="hh">${h}</span>`).join('')+KEYS.map((k,i)=>`<span>${AREAS[k]}</span>`+H.map((h,j)=>`<span class="qb">q${i*3+j}</span>`).join('')).join('');
+
+// ② real COBYLA history: scenarios.normal.qaoa.trace.cobyla.iterations[].energy (42 evaluations)
+const E=[124.62,399.74,476.91,343.92,67.87,375.46,86.84,56.54,124.5,55.83,86.12,57.25,65.72,68.46,55.34,55.68,56.41,56.96,58.44,54.56,57.64,56.53,54.28,54.15,57.23,53.3,53.4,54.6,54.29,55.05,53.41,54.37,54.13,53.36,54.32,53.4,52.72,55.03,52.52,53.19,52.55,52.9];
+(()=>{const W=900,Ht=320,L=70,R=110,T=16,B=40,x=i=>L+i/(E.length-1)*(W-L-R),y=v=>T+(1-v/500)*(Ht-T-B);
+ let g='';for(let v=0;v<=500;v+=100)g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#ece7dc"/><text x="${L-10}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+ [1,10,20,30,42].forEach(r=>g+=`<text x="${x(r-1)}" y="${Ht-B+20}" text-anchor="middle">${r}</text>`);
+ g+=`<text x="${(L+W-R)/2}" y="${Ht-2}" text-anchor="middle">tuning round</text><text transform="translate(16 ${(T+Ht-B)/2}) rotate(-90)" text-anchor="middle">average penalty</text>`;
+ g+=`<polyline fill="none" stroke="#33373b" stroke-width="2.5" stroke-linejoin="round" points="${E.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`;
+ g+=`<circle cx="${x(0)}" cy="${y(E[0])}" r="5" fill="#33373b"/><circle cx="${x(41)}" cy="${y(E[41])}" r="6" fill="#1c7a5c"/>`;
+ g+=`<text x="${x(41)+12}" y="${y(E[41])+4}" style="fill:#1c7a5c;font-weight:700;font-size:14px">${E[41]}</text><text x="${x(0)+8}" y="${y(E[0])-6}">${E[0]}</text>`;
+ $('tune').innerHTML=`<svg viewBox="0 0 ${W} ${Ht}" preserveAspectRatio="xMinYMid meet">${g}</svg>`})();
+
+// ④ real objective values: scenarios.normal.plans.<p>.objective
+const OBJ=[["Today's rule",33.16],["Greedy (hour by hour)",31.84],["AI centre always first",21.24],["QAOA",17.14,1],["Exact (all 4,096 plans)",17.14,1]];
+$('bars').innerHTML=OBJ.map(([n,v,b])=>`<div class="bar${b?' best':''}"><span>${n}</span><div style="width:${v/34*100}%">${b?'✓ ':''}${v}</div></div>`).join('');
+
+// ③ real measured answers (top bitstrings + counts from results.json, normal scenario). bit order: I-10[2,3,4] G-9[2,3,4] Blue[2,3,4] AI[2,3,4]
+const TOP=[["010000010001",12],["010001010000",11],["010101010000",10],["000011010000",10],["010010000100",10],["100000010010",10],["000010010001",10],["001000010010",9],["010000101010",9],["000010000110",9],["010001000110",9],["001000010110",9],["010010100001",9]];
+const SHOTS=1024,PVALID=0.459,BEST="010010100001";
+function decode(b){return [0,1,2].map(h=>KEYS.filter((k,i)=>b[i*3+h]=="1"))}
+function valid(b){const d=decode(b);return d[0].length==1&&d[1].length==2&&d[2].length==1}
+function rndBits(){let s="";for(let i=0;i<12;i++)s+=Math.random()<.5?"1":"0";return s}
+console.assert(JSON.stringify(decode(BEST))==JSON.stringify(hourList(SC.normal.fair)),'quantum best plan must equal the fair plan shown on screen 1');
+// shortcut: only the top answers are replayed exactly; the rest are random plans filled in to match the real 45.9% rule-following share
+function shotList(after){const out=[];if(after){TOP.forEach(([b,c])=>{for(let i=0;i<c;i++)out.push(b)});const nValid=Math.round(SHOTS*PVALID)-out.filter(valid).length;let v=0;while(out.length<SHOTS){const b=rndBits();if(b==BEST)continue;if(valid(b)&&v<nValid){out.push(b);v++}else if(!valid(b)&&out.length+(nValid-v)<SHOTS)out.push(b)}}
+ else{while(out.length<SHOTS)out.push(rndBits())}for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
+const wall=$('wall');wall.innerHTML='<i></i>'.repeat(SHOTS);const cells=wall.children;
+let timer;function play(after){clearInterval(timer);$$('.runs button').forEach((b,j)=>b.classList.toggle('on',j==+after));const list=shotList(after);[...cells].forEach(c=>c.className='');let i=0,v=0,best=0;const vd=$('verdict');vd.hidden=false;
+ timer=setInterval(()=>{for(let s=0;s<16&&i<SHOTS;s++,i++){const b=list[i],ok=valid(b),isB=b==BEST;cells[i].className=isB?'b':ok?'v':'x';if(ok)v++;if(isB)best++;if(s==15||i==SHOTS-1){vd.className='verdict '+(isB?'best':ok?'ok':'no');vd.textContent=isB?'★ the best fair plan':ok?'✓ follows the rules':'✗ breaks a rule'}}
+  $('shotno').textContent=`Answer ${i.toLocaleString('en-US')} of 1,024`;$('pv').textContent=(v/i*100).toFixed(1)+'%';$('pvn').textContent=after?'after tuning · measured 45.9%':'random guessing · expected 2.3%';
+  $('pb').textContent=best+'×';
+  if(i>=SHOTS){clearInterval(timer);if(after){vd.className='verdict best';vd.textContent='★ Chosen: the best fair plan'}}},45)}
+
+// routing
+const TITLES={plan:"Today's plan",quantum:"How quantum chose it"};
+function show(){const id=TITLES[location.hash.slice(1)]?location.hash.slice(1):'plan';$$('section').forEach(s=>s.classList.toggle('on',s.id==id));
+ $$('aside a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+id));$('title').textContent=TITLES[id]}
+addEventListener('hashchange',show);show();
+</script></body></html>
