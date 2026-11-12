@@ -12,10 +12,10 @@ HOURS = ["2–3 pm", "3–4 pm", "4–5 pm"]
 N = len(BLOCKS) * T  # 12 qubits; qubit b*T+t <-> x[b,t]
 
 INFO = {  # synthetic
-    "N1": {"name": "Area 1", "kind": "homes", "loss_pct": 38, "damage_per_hour": 1.6},
-    "N2": {"name": "Area 2", "kind": "homes", "loss_pct": 22, "damage_per_hour": 1.0},
-    "N3": {"name": "Area 3", "kind": "market", "loss_pct": 12, "damage_per_hour": 3.0},
-    "DC": {"name": "AI data center", "kind": "datacenter", "revenue_per_hour": [5.5, 7.0, 4.5]},
+    "N1": {"name": "Lyari", "kind": "homes", "loss_pct": 38, "damage_per_hour": 1.6},
+    "N2": {"name": "Gulshan-e-Iqbal", "kind": "homes", "loss_pct": 22, "damage_per_hour": 1.0},
+    "N3": {"name": "Saddar", "kind": "market", "loss_pct": 12, "damage_per_hour": 3.0},
+    "DC": {"name": "Korangi AI data centre", "kind": "datacenter", "revenue_per_hour": [5.5, 7.0, 4.5]},
 }
 W = {"fairness": 2.0, "back_to_back": 3.0, "revenue": 1.0, "damage": 1.0, "penalty": 40.0}
 K_NORMAL, K_DISASTER = [1, 2, 1], [1, 3, 1]

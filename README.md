@@ -22,7 +22,7 @@ Sources:
 
 ## Formulation
 
-- **Blocks:** N1, N2, N3 (neighborhoods) and DC (AI data center). Each is one equal 10 MW chunk. The hospital is always on and is not a variable.
+- **Blocks:** N1 Lyari (homes), N2 Gulshan-e-Iqbal (homes), N3 Saddar (market) and DC, a hypothetical Korangi AI data centre. Each is one equal 10 MW chunk. Civil Hospital is always on and is not a variable. Power comes from Bin Qasim power station. Place names set the scene; all numbers in this demo are synthetic.
 - **Hours:** 3 hours (2-3 pm, 3-4 pm, 4-5 pm peak).
 - **Decision:** x[b,t] = 1 if block b is switched OFF in hour t. 4 blocks x 3 hours = **12 qubits**.
 - **Rule as a penalty:** the shortfall is covered exactly, so the number of blocks off in hour t equals k_t. In the QUBO this is the penalty P * sum_t (sum_b x[b,t] - k_t)^2. Brute force confirms the lowest QUBO energy is a valid plan equal to the constrained optimum.

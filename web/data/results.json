@@ -15,25 +15,25 @@
  ],
  "block_info": {
   "N1": {
-   "name": "Area 1",
+   "name": "Lyari",
    "kind": "homes",
    "loss_pct": 38,
    "damage_per_hour": 1.6
   },
   "N2": {
-   "name": "Area 2",
+   "name": "Gulshan-e-Iqbal",
    "kind": "homes",
    "loss_pct": 22,
    "damage_per_hour": 1.0
   },
   "N3": {
-   "name": "Area 3",
+   "name": "Saddar",
    "kind": "market",
    "loss_pct": 12,
    "damage_per_hour": 3.0
   },
   "DC": {
-   "name": "AI data center",
+   "name": "Korangi AI data centre",
    "kind": "datacenter",
    "revenue_per_hour": [
     5.5,
@@ -43,7 +43,7 @@
   }
  },
  "hospital": {
-  "name": "Hospital",
+  "name": "Civil Hospital",
   "always_on": true
  },
  "weights": {
@@ -243,7 +243,7 @@
     "qubits": 12,
     "reps": 2,
     "shots": 1024,
-    "seconds": 28.6,
+    "seconds": 27.0,
     "restarts": 3,
     "p_opt": 0.00566,
     "p_feasible": 0.4587,
@@ -977,10 +977,10 @@
      "exact_check": {
       "plans_checked": 4096,
       "valid_plans": 96,
-      "seconds": 0.016,
+      "seconds": 0.035,
       "agrees": true
      },
-     "seconds": 28.6
+     "seconds": 27.0
     }
    }
   },
@@ -1173,7 +1173,7 @@
     "qubits": 12,
     "reps": 2,
     "shots": 1024,
-    "seconds": 26.0,
+    "seconds": 25.3,
     "restarts": 3,
     "p_opt": 0.00601,
     "p_feasible": 0.3473,
@@ -1943,10 +1943,10 @@
      "exact_check": {
       "plans_checked": 4096,
       "valid_plans": 64,
-      "seconds": 0.016,
+      "seconds": 0.035,
       "agrees": true
      },
-     "seconds": 26.0
+     "seconds": 25.3
     }
    }
   }

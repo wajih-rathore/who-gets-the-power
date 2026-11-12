@@ -135,6 +135,7 @@ doc.add_paragraph(
     f"revenue {fmt(W.get('revenue'))}, damage {fmt(W.get('damage'))}, penalty P = {fmt(W.get('penalty'))}. "
     "The penalty was validated by brute force over all 4096 bitstrings: the lowest QUBO energy must be a valid plan equal to the constrained optimum.")
 doc.add_paragraph(f"The instance (synthetic, made-up but plausible numbers; not real K-Electric or data-center data). {get(R, 'currency_note') or ''}")
+doc.add_paragraph("Place names (Lyari, Gulshan-e-Iqbal, Saddar, a hypothetical Korangi AI data centre, Civil Hospital, Bin Qasim power station) set the scene; all numbers in this demo are synthetic.")
 rows = []
 for b in BLOCKS:
     bi = get(R, "block_info", b) or {}

@@ -1,38 +1,42 @@
 # Who Gets the Power?: 3-minute video script
 
-Read aloud by the team, about 240 spoken words (about 1:50 at 130 words a minute, leaving room for the map animations). Numbers come from `web/data/results.json` (normal scenario unless noted). Say "set aside", never "is running". Keep a neutral tone. Open the page at step 1: https://who-gets-the-power.vercel.app/#step=1
+Read aloud by the team over the six stages of the demo, about 200 spoken words plus the hook (about 2 minutes, leaving room for the map animations). The stage narration is the team's own wording; keep it word for word. Numbers come from `web/data/results.json` (normal scenario). Place names set the scene; all numbers in this demo are synthetic. Say "set aside", never "is running". Open the page at stage 1: https://who-gets-the-power.vercel.app/#step=1
 
-## 0:00 - 0:20 Hook
-[SCREEN: Title, then the two facts as headlines]
+## 0:00 - 0:15 Hook
+[SCREEN: Title]
 
-"In May 2025, Pakistan set aside 2,000 megawatts of electricity for Bitcoin mining and AI data centers. In August 2026, the regulator ordered K-Electric to stop cutting whole neighborhoods based on losses. So when there isn't enough power, who gets it?"
+"In May 2025, Pakistan set aside 2,000 megawatts of electricity for Bitcoin mining and AI data centers. So when there isn't enough power, who gets it?"
 
-## 0:20 - 0:40 Step 1: Not enough power
-[SCREEN: Step 1. Power flows from the plant, the gauge turns red.]
+## ① The shortfall
+[SCREEN: Stage 1. Power flows from Bin Qasim; the gauge turns red.]
 
-"Three pm in June. Karachi needs more power than it has: twenty megawatts short at the peak. The hospital is never cut. Someone else has to be."
+"Karachi, a June afternoon. Every fan in the city is running, and K-Electric is 20 megawatts short. For the next three hours, someone has to be switched off."
 
-## 0:40 - 1:00 Step 2: Today's rule
-[SCREEN: Step 2. Area 1's line cuts every hour.]
+## ② Today's rule
+[SCREEN: Stage 2. Lyari's line cuts at 2, 3 and 4.]
 
-"Today's rule cuts the highest-loss area first. The same neighborhood goes dark for three hours, two of them back to back."
+"Until recently, the answer was simple: cut the areas where the most bills go unpaid. So Lyari goes dark at 2, again at 3, and again at 4. In August 2026, NEPRA ordered K-Electric to stop cutting whole areas this way."
 
-## 1:00 - 1:25 Step 3: 12 switches
-[SCREEN: Step 3. Switch icons appear by each block.]
+## ③ Switches → qubits
+[SCREEN: Stage 3. The 12-switch grid.]
 
-"Four blocks, three hours: twelve on-off switches, and 4,096 possible plans. A quantum computer holds all twelve switches at once as qubits."
+"So who goes dark instead? Picture a switch for every area, every hour: four places, three hours, twelve switches. That's 4,096 possible schedules. On a quantum computer, each switch becomes a qubit."
 
-## 1:25 - 1:55 Step 4: The search
-[SCREEN: Step 4. Switches flicker, the chance bar grows.]
+## ④ Quantum search
+[SCREEN: Stage 4. Probability bar and sparkline.]
 
-"It tunes its settings over forty-two rounds so good plans come up more often. Picking the best plan at random has a 0.024 percent chance. After tuning it is 0.57 percent, about twenty-three times better."
+"The quantum computer doesn't try schedules one by one. It sets up all twelve qubits together, then spends 42 rounds learning to make fair schedules more likely. By the end, the best schedule shows up about 23 times more often than it would by luck."
 
-## 1:55 - 2:25 Step 5: The fair plan
-[SCREEN: Step 5. The plan plays hour by hour.]
+## ⑤ Double-check
+[SCREEN: Stage 5. The check badge.]
 
-"The fair plan: each area is dark for one hour at most, never back to back. The data center pauses for one hour and keeps 74 percent of its revenue. The hospital stays on."
+"We don't just take its word for it. An ordinary computer checks all 4,096 schedules, and lands on the same answer."
 
-## 2:25 - 3:00 Step 6: Checked, and honest
-[SCREEN: Step 6. Then press Plant trips.]
+## ⑥ The fair plan
+[SCREEN: Stage 6. The plan plays across the hours; then press "What if a power plant trips?"]
 
-"A regular computer checked all 4,096 plans and found the same answer. At this size a laptop is enough, and our data is synthetic, run on a simulator, so we claim no speedup. If a plant trips, the page shows the plan we solved for that case too. Who Gets the Power: make the choice visible."
+"Now nobody sits in the dark for more than an hour, nobody gets cut twice in a row, Civil Hospital never blinks, and the AI data centre takes its turn at 4."
+
+## Close (optional, if time allows)
+
+"The numbers here are synthetic, and we ran a simulator, so we claim no speedup. Who Gets the Power: make the choice visible."

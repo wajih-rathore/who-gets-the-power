@@ -187,7 +187,7 @@ def charts(res):
 def main():
     res = {"synthetic": True, "mw_per_block": 10,
            "currency_note": "revenue and damage in synthetic 'PKR million per hour'", "hours": HOURS, "blocks": BLOCKS,
-           "block_info": INFO, "hospital": {"name": "Hospital", "always_on": True}, "weights": W, "scenarios": {}}
+           "block_info": INFO, "hospital": {"name": "Civil Hospital", "always_on": True}, "weights": W, "scenarios": {}}
     for key, k, label, desc in [
         ("normal", K_NORMAL, "Normal hot afternoon", "Power is short by one block at 2 pm, two at 3 pm and one at 4 pm."),
         ("disaster", K_DISASTER, "Disaster: a power plant trips",
