@@ -241,7 +241,7 @@ bullets([
 
 # 8
 doc.add_heading("8. Reproducibility", 1)
-doc.add_paragraph("From the repository root (Python 3.10 or newer):")
+doc.add_paragraph("From the repository root (tested with Python 3.13):")
 for c in ("python -m venv .venv && .venv/bin/pip install -r requirements.txt",
           "cd src && ../.venv/bin/python -m bijli.run        # writes web/data/results.json and results/*.png",
           ".venv/bin/python report/make_diagram.py          # architecture.png",
