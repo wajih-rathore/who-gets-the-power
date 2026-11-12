@@ -31,7 +31,7 @@ function blockSvg(id) {
   }
   const kind = { homes: "homes", market: "market", datacenter: "" }[info.kind];
   return `<g class="blk lit${dc ? " dc" : ""}" id="b-${id}" transform="translate(${x},${y})"><ellipse class="glow" cx="0" cy="0" rx="82" ry="58"/>${art}
-    <text class="lbl" y="52" text-anchor="middle">${info.name}${kind ? `<tspan class="kind"> · ${kind}</tspan>` : ""}</text>${dc ? `<text class="hyp" y="67" text-anchor="middle">hypothetical</text>` : ""}</g>`;
+    <text class="lbl" y="52" text-anchor="middle">${info.name}${kind ? `<tspan class="kind"> · ${kind}</tspan>` : ""}</text>${dc ? "" : `<text class="loss" y="-44" text-anchor="middle">${info.loss_pct}% lost</text>`}${dc ? `<text class="hyp" y="67" text-anchor="middle">hypothetical</text>` : ""}</g>`;
 }
 function buildMap() {
   const svg = $("#map");
@@ -78,9 +78,10 @@ const big = (v, l, cls = "") => `<div class="stat ${cls}"><b>${v}</b><span>${l}<
 
 /* ---------- stages ---------- */
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+const cap = (x) => x[0].toUpperCase() + x.slice(1);
 const word = (n) => WORDS[n] ?? String(n);
 const startHour = (i) => D.hours[i].split("–")[0];
-const grid = (cls = "") => `<div class="swgrid ${cls}">${D.blocks.map((b) => `<div><em>${D.block_info[b].name}</em>${D.hours.map((_, h) => `<span class="sw" style="--d:${((h * 0.23 + (b.charCodeAt(1) % 5) * 0.11) % 0.6).toFixed(2)}s"><i></i></span>`).join("")}</div>`).join("")}</div>`;
+const grid = (cls = "") => `<div class="swgrid ${cls}"><div class="hd"><em></em>${D.hours.map((_, h) => `<b>${startHour(h)} pm</b>`).join("")}</div>${D.blocks.map((b) => `<div><em>${D.block_info[b].name}</em>${D.hours.map((_, h) => `<span class="sw" style="--d:${((h * 0.23 + (b.charCodeAt(1) % 5) * 0.11) % 0.6).toFixed(2)}s"><i></i></span>`).join("")}</div>`).join("")}</div>`;
 const stat = (v, l) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`;
 const dcOn = (p) => p.off.DC.filter((x) => !x).length;
 const STAGES = [
@@ -89,23 +90,23 @@ const STAGES = [
       return `<p>It's a hot afternoon in Karachi, and everyone switches on their fans at once. The power station can't keep up: there's only enough electricity for ${n(0)} of our ${T} places at ${hs(0)} o'clock, and just ${n(1)} of them at ${hs(1)}. Someone has to wait in the dark.</p>`; },
     run: () => { show({ gauge: true, clock: true, red: false }); timer2 = setTimeout(() => playHours({ gauge: true, clock: true }), 900); } },
   { name: "Today's rule",
-    html: () => { const t = N.plans.today, w = D.blocks.find((b) => D.block_info[b].kind !== "datacenter" && t.off[b].every(Boolean)) || D.blocks.find((b) => t.off[b].filter(Boolean).length === t.max_dark_hours);
-      return `<p>Today the rule is simple: switch off the same neighbourhood first, every time. So ${D.block_info[w].name}'s lights go out at ${startHour(0)}… and at ${startHour(1)}… and at ${startHour(2)}. Three hot hours in a row, while the others mostly stay lit. That doesn't feel fair.</p>`; },
-    run: () => playHours({ plan: "today", clock: true, gauge: true }) },
+    html: () => { const t = N.plans.today, w = D.blocks.filter((b) => D.block_info[b].kind !== "datacenter").sort((x, y) => D.block_info[y].loss_pct - D.block_info[x].loss_pct)[0];
+      return `<p>Today, K-Electric ranks areas by how much electricity is lost there: stolen, or never paid for. The highest-loss areas are cut first and longest. With ${D.block_info[w].name} losing the most, ${D.block_info[w].name} goes dark at ${startHour(0)}, at ${startHour(1)} and at ${startHour(2)}: ${word(t.max_dark_hours)} hours straight, even for the families who do pay.</p>`; },
+    run: () => { document.body.classList.add("loss-on"); playHours({ plan: "today", clock: true, gauge: true }); } },
   { name: "Switches → qubits",
-    html: () => { const q = qm().length; return `<p>Let's think of it as switches. One switch for each place, for each hour: ${D.blocks.length} places × ${D.hours.length} hours = ${q} switches. Flip them every possible way and you get ${fmt(nPlans())} different plans. A quantum computer gives each switch its own qubit.</p>${grid()}`; },
+    html: () => { const q = qm().length; return `<p>Each place can be on or off in each hour. ${cap(word(D.blocks.length))} places over ${word(D.hours.length)} hours gives ${q} on/off switches, and ${fmt(nPlans())} ways to set them. On a quantum computer, each switch is a qubit.</p>${grid()}`; },
     run: () => show({}) },
   { name: "Quantum search",
     html: () => { const q = N.qaoa, it = q.trace.cobyla.iterations.map((r) => r.energy), mx = Math.max(...it), mn = Math.min(...it);
       const pts = it.map((e, i) => `${(i / (it.length - 1) * 200).toFixed(1)},${(36 - (e - mn) / (mx - mn) * 34).toFixed(1)}`).join(" ");
-      return `<p>Instead of checking plans one at a time, the quantum computer plays with all ${qm().length} switches together. Round after round, ${q.trace.cobyla.evaluations} rounds in all, it learns which plans are fair and makes them come up more often, like a game of hot and cold. By the end, it finds the best plan ${times()} times more often than guessing.</p>
+      return `<p>We use QAOA, a quantum algorithm built for choose-the-best-combination problems like this one. A regular optimizer tunes the quantum circuit over ${q.trace.cobyla.evaluations} rounds so fair schedules come up more often. By the end, the best schedule shows up about ${times()} times more often than by guessing.</p>
       ${grid("flick")}<div class="bars"><div><em>Guessing</em><i style="--w:${(q.p_opt_random / q.p_opt * 100).toFixed(2)}%"></i><u></u></div><div><em>Quantum</em><i class="q" style="--w:100%"></i><u>${times()}×</u></div></div>
       <svg class="spark" viewBox="0 0 200 38" aria-label="Energy over the tuning rounds"><polyline points="${pts}"/></svg>`; },
     run: () => { show({}); requestAnimationFrame(() => requestAnimationFrame(() => $("#story").classList.add("grow"))); } },
-  { name: "Double-check",
-    html: () => { const e = N.qaoa.trace.exact_check;
-      return `<p>Then an ordinary computer checks the slow way, trying all ${fmt(e.plans_checked)} plans one by one. ${e.agrees ? "Same answer. ✓" : "A different answer."}</p>
-      <div class="badge ${e.agrees ? "" : "bad"}"><svg viewBox="0 0 24 24" width="44" height="44"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M6.5 12.5l3.8 3.8 7.2-8" fill="none" stroke="#fff" stroke-width="2.6"/></svg><span>${fmt(e.plans_checked)} checked<br>${e.agrees ? "same answer" : "different answer"}</span></div>`; },
+  { name: "Quantum vs classical",
+    html: () => { const e = N.qaoa.trace.exact_check, P = N.plans, row = (l, p, t) => `<tr><td>${l}</td><td>${p.max_dark_hours} h</td><td>${p.back_to_back}</td><td>${t}</td></tr>`;
+      return `<p>A classical computer can solve this small case the sure way: try all ${fmt(e.plans_checked)} plans. It takes ${fmt(e.seconds, 3)} seconds and ${e.agrees ? "agrees with the quantum answer" : "disagrees with the quantum answer"}. Quick rules of thumb do worse. But every extra switch doubles the plans: a city with 100 areas over a full day has more possible plans than there are atoms in the universe. That's the scale quantum computers are being built for.</p>
+      <table class="cmp"><tr><th></th><th>Longest dark wait</th><th>Cut twice in a row</th><th>Time taken</th></tr>${row("Today's rule", P.today, "—")}${row("Quick rule (greedy)", P.greedy, "—")}${row("Classical, try every plan", P.exact, fmt(e.seconds, 3) + " s")}${row("Quantum (QAOA)", P.qaoa, fmt(N.qaoa.seconds, 1) + " s*")}</table><p class="small">* on a simulator</p>`; },
     run: () => show({}) },
   { name: "The fair plan",
     html: () => { const t = N.plans.today, q = N.plans.qaoa, dcH = q.off.DC.indexOf(1);
@@ -118,6 +119,7 @@ const STAGES = [
 
 function go(n) {
   STEP = Math.max(0, Math.min(STAGES.length - 1, n)); clearTimers();
+  document.body.classList.remove("loss-on");
   history.replaceState(null, "", "#step=" + (STEP + 1));
   const st = $("#story"); st.classList.remove("grow", "in"); st.innerHTML = STAGES[STEP].html(); void st.offsetWidth; st.classList.add("in");
   $("#count").textContent = `${STEP + 1} / ${STAGES.length}`;
