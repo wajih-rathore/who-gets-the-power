@@ -243,13 +243,745 @@
     "qubits": 12,
     "reps": 2,
     "shots": 1024,
-    "seconds": 28.0,
+    "seconds": 28.6,
     "restarts": 3,
     "p_opt": 0.00566,
     "p_feasible": 0.4587,
     "p_opt_random": 0.000244,
     "p_feasible_random": 0.0234,
-    "found_optimum": true
+    "found_optimum": true,
+    "trace": {
+     "qubit_map": [
+      {
+       "q": 0,
+       "block": "N1",
+       "hour": 0
+      },
+      {
+       "q": 1,
+       "block": "N1",
+       "hour": 1
+      },
+      {
+       "q": 2,
+       "block": "N1",
+       "hour": 2
+      },
+      {
+       "q": 3,
+       "block": "N2",
+       "hour": 0
+      },
+      {
+       "q": 4,
+       "block": "N2",
+       "hour": 1
+      },
+      {
+       "q": 5,
+       "block": "N2",
+       "hour": 2
+      },
+      {
+       "q": 6,
+       "block": "N3",
+       "hour": 0
+      },
+      {
+       "q": 7,
+       "block": "N3",
+       "hour": 1
+      },
+      {
+       "q": 8,
+       "block": "N3",
+       "hour": 2
+      },
+      {
+       "q": 9,
+       "block": "DC",
+       "hour": 0
+      },
+      {
+       "q": 10,
+       "block": "DC",
+       "hour": 1
+      },
+      {
+       "q": 11,
+       "block": "DC",
+       "hour": 2
+      }
+     ],
+     "bit_order": "bitstring[i] is qubit q_i (q0 is the leftmost character)",
+     "circuit": {
+      "image": "assets/circuit_normal.svg",
+      "reps": 2,
+      "depth": 60,
+      "two_qubit_gates": 108,
+      "num_params": 4,
+      "note": "depth and two-qubit gates counted after transpile to cx/rz/rx/h (all-to-all, optimization_level=1, seed_transpiler=7) of the QAOA ansatz with the final angles; the drawing is a high-level view (H layer, then cost and mixer layers x2)"
+     },
+     "cobyla": {
+      "iterations": [
+       {
+        "i": 1,
+        "energy": 124.6155,
+        "gamma": [
+         0.3013,
+         0.0822
+        ],
+        "beta": [
+         -0.4144,
+         -0.2632
+        ]
+       },
+       {
+        "i": 2,
+        "energy": 399.742,
+        "gamma": [
+         0.3013,
+         0.0822
+        ],
+        "beta": [
+         0.5856,
+         -0.2632
+        ]
+       },
+       {
+        "i": 3,
+        "energy": 476.9094,
+        "gamma": [
+         0.3013,
+         0.0822
+        ],
+        "beta": [
+         -0.4144,
+         0.7368
+        ]
+       },
+       {
+        "i": 4,
+        "energy": 343.9192,
+        "gamma": [
+         1.3013,
+         0.0822
+        ],
+        "beta": [
+         -0.4144,
+         -0.2632
+        ]
+       },
+       {
+        "i": 5,
+        "energy": 67.8672,
+        "gamma": [
+         0.3013,
+         1.0822
+        ],
+        "beta": [
+         -0.4144,
+         -0.2632
+        ]
+       },
+       {
+        "i": 6,
+        "energy": 375.4644,
+        "gamma": [
+         -0.1364,
+         1.1954
+        ],
+        "beta": [
+         -0.9634,
+         -0.9662
+        ]
+       },
+       {
+        "i": 7,
+        "energy": 86.8435,
+        "gamma": [
+         0.5104,
+         1.4878
+        ],
+        "beta": [
+         -0.245,
+         -0.1488
+        ]
+       },
+       {
+        "i": 8,
+        "energy": 56.5353,
+        "gamma": [
+         0.3156,
+         1.0964
+        ],
+        "beta": [
+         -0.5147,
+         -0.1914
+        ]
+       },
+       {
+        "i": 9,
+        "energy": 124.5005,
+        "gamma": [
+         0.1779,
+         1.0651
+        ],
+        "beta": [
+         -0.4437,
+         0.0023
+        ]
+       },
+       {
+        "i": 10,
+        "energy": 55.8284,
+        "gamma": [
+         0.3513,
+         1.0682
+        ],
+        "beta": [
+         -0.502,
+         -0.1752
+        ]
+       },
+       {
+        "i": 11,
+        "energy": 86.1234,
+        "gamma": [
+         0.4047,
+         1.0679
+        ],
+        "beta": [
+         -0.5686,
+         -0.2274
+        ]
+       },
+       {
+        "i": 12,
+        "energy": 57.2526,
+        "gamma": [
+         0.327,
+         1.0273
+        ],
+        "beta": [
+         -0.5161,
+         -0.1819
+        ]
+       },
+       {
+        "i": 13,
+        "energy": 65.7186,
+        "gamma": [
+         0.3137,
+         1.0764
+        ],
+        "beta": [
+         -0.4746,
+         -0.0871
+        ]
+       },
+       {
+        "i": 14,
+        "energy": 68.4643,
+        "gamma": [
+         0.3816,
+         1.0757
+        ],
+        "beta": [
+         -0.5395,
+         -0.1862
+        ]
+       },
+       {
+        "i": 15,
+        "energy": 55.3358,
+        "gamma": [
+         0.3537,
+         1.0669
+        ],
+        "beta": [
+         -0.4971,
+         -0.1864
+        ]
+       },
+       {
+        "i": 16,
+        "energy": 55.6781,
+        "gamma": [
+         0.3451,
+         1.0666
+        ],
+        "beta": [
+         -0.474,
+         -0.1821
+        ]
+       },
+       {
+        "i": 17,
+        "energy": 56.4065,
+        "gamma": [
+         0.3563,
+         1.071
+        ],
+        "beta": [
+         -0.4962,
+         -0.1859
+        ]
+       },
+       {
+        "i": 18,
+        "energy": 56.9582,
+        "gamma": [
+         0.3496,
+         1.0584
+        ],
+        "beta": [
+         -0.4989,
+         -0.1891
+        ]
+       },
+       {
+        "i": 19,
+        "energy": 58.4448,
+        "gamma": [
+         0.3575,
+         1.0644
+        ],
+        "beta": [
+         -0.496,
+         -0.1848
+        ]
+       },
+       {
+        "i": 20,
+        "energy": 54.5566,
+        "gamma": [
+         0.3478,
+         1.074
+        ],
+        "beta": [
+         -0.4988,
+         -0.1899
+        ]
+       },
+       {
+        "i": 21,
+        "energy": 57.64,
+        "gamma": [
+         0.3519,
+         1.0828
+        ],
+        "beta": [
+         -0.4976,
+         -0.1918
+        ]
+       },
+       {
+        "i": 22,
+        "energy": 56.5311,
+        "gamma": [
+         0.3493,
+         1.0736
+        ],
+        "beta": [
+         -0.5032,
+         -0.1914
+        ]
+       },
+       {
+        "i": 23,
+        "energy": 54.2779,
+        "gamma": [
+         0.3399,
+         1.0709
+        ],
+        "beta": [
+         -0.4935,
+         -0.1896
+        ]
+       },
+       {
+        "i": 24,
+        "energy": 54.1499,
+        "gamma": [
+         0.3353,
+         1.0634
+        ],
+        "beta": [
+         -0.4887,
+         -0.1898
+        ]
+       },
+       {
+        "i": 25,
+        "energy": 57.234,
+        "gamma": [
+         0.3361,
+         1.0679
+        ],
+        "beta": [
+         -0.48,
+         -0.1877
+        ]
+       },
+       {
+        "i": 26,
+        "energy": 53.2963,
+        "gamma": [
+         0.3367,
+         1.0633
+        ],
+        "beta": [
+         -0.4876,
+         -0.1945
+        ]
+       },
+       {
+        "i": 27,
+        "energy": 53.4037,
+        "gamma": [
+         0.3339,
+         1.0608
+        ],
+        "beta": [
+         -0.4938,
+         -0.2014
+        ]
+       },
+       {
+        "i": 28,
+        "energy": 54.6021,
+        "gamma": [
+         0.3447,
+         1.0574
+        ],
+        "beta": [
+         -0.4889,
+         -0.1942
+        ]
+       },
+       {
+        "i": 29,
+        "energy": 54.2938,
+        "gamma": [
+         0.3358,
+         1.0656
+        ],
+        "beta": [
+         -0.4845,
+         -0.1975
+        ]
+       },
+       {
+        "i": 30,
+        "energy": 55.0461,
+        "gamma": [
+         0.3362,
+         1.0623
+        ],
+        "beta": [
+         -0.487,
+         -0.1945
+        ]
+       },
+       {
+        "i": 31,
+        "energy": 53.4076,
+        "gamma": [
+         0.3384,
+         1.0647
+        ],
+        "beta": [
+         -0.4888,
+         -0.1946
+        ]
+       },
+       {
+        "i": 32,
+        "energy": 54.373,
+        "gamma": [
+         0.3368,
+         1.0634
+        ],
+        "beta": [
+         -0.4874,
+         -0.1941
+        ]
+       },
+       {
+        "i": 33,
+        "energy": 54.1301,
+        "gamma": [
+         0.3359,
+         1.0637
+        ],
+        "beta": [
+         -0.4882,
+         -0.1945
+        ]
+       },
+       {
+        "i": 34,
+        "energy": 53.3644,
+        "gamma": [
+         0.3368,
+         1.0631
+        ],
+        "beta": [
+         -0.488,
+         -0.1942
+        ]
+       },
+       {
+        "i": 35,
+        "energy": 54.3181,
+        "gamma": [
+         0.3373,
+         1.0633
+        ],
+        "beta": [
+         -0.488,
+         -0.1952
+        ]
+       },
+       {
+        "i": 36,
+        "energy": 53.3986,
+        "gamma": [
+         0.3369,
+         1.0636
+        ],
+        "beta": [
+         -0.4875,
+         -0.1942
+        ]
+       },
+       {
+        "i": 37,
+        "energy": 52.7196,
+        "gamma": [
+         0.3366,
+         1.0633
+        ],
+        "beta": [
+         -0.4876,
+         -0.1944
+        ]
+       },
+       {
+        "i": 38,
+        "energy": 55.0339,
+        "gamma": [
+         0.3365,
+         1.0632
+        ],
+        "beta": [
+         -0.4874,
+         -0.1943
+        ]
+       },
+       {
+        "i": 39,
+        "energy": 52.5237,
+        "gamma": [
+         0.3366,
+         1.0633
+        ],
+        "beta": [
+         -0.4876,
+         -0.1944
+        ]
+       },
+       {
+        "i": 40,
+        "energy": 53.1887,
+        "gamma": [
+         0.3365,
+         1.0634
+        ],
+        "beta": [
+         -0.4876,
+         -0.1944
+        ]
+       },
+       {
+        "i": 41,
+        "energy": 52.5531,
+        "gamma": [
+         0.3366,
+         1.0633
+        ],
+        "beta": [
+         -0.4876,
+         -0.1945
+        ]
+       },
+       {
+        "i": 42,
+        "energy": 52.8963,
+        "gamma": [
+         0.3366,
+         1.0633
+        ],
+        "beta": [
+         -0.4875,
+         -0.1944
+        ]
+       }
+      ],
+      "final_gamma": [
+       0.3366,
+       1.0633
+      ],
+      "final_beta": [
+       -0.4876,
+       -0.1944
+      ],
+      "evaluations": 42,
+      "energy_note": "QUBO energy (penalty included) estimated from 1024 sampled shots per evaluation"
+     },
+     "histogram": {
+      "shots": 1024,
+      "top": [
+       {
+        "bitstring": "010000010001",
+        "count": 12,
+        "rank": 1,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010001010000",
+        "count": 11,
+        "rank": 2,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010101010000",
+        "count": 10,
+        "rank": 3,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 20.64
+       },
+       {
+        "bitstring": "000011010000",
+        "count": 10,
+        "rank": 3,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010010000100",
+        "count": 10,
+        "rank": 3,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "100000010010",
+        "count": 10,
+        "rank": 3,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "000010010001",
+        "count": 10,
+        "rank": 3,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "001000010010",
+        "count": 9,
+        "rank": 8,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010000101010",
+        "count": 9,
+        "rank": 8,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 25.84
+       },
+       {
+        "bitstring": "000010000110",
+        "count": 9,
+        "rank": 8,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010001000110",
+        "count": 9,
+        "rank": 8,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 19.94
+       },
+       {
+        "bitstring": "001000010110",
+        "count": 9,
+        "rank": 8,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 22.62
+       },
+       {
+        "bitstring": "010010100001",
+        "count": 9,
+        "rank": 8,
+        "valid": true,
+        "is_optimum": true,
+        "objective": 17.14
+       }
+      ]
+     },
+     "decoded": {
+      "bitstring": "010010100001",
+      "off": {
+       "N1": [
+        0,
+        1,
+        0
+       ],
+       "N2": [
+        0,
+        1,
+        0
+       ],
+       "N3": [
+        1,
+        0,
+        0
+       ],
+       "DC": [
+        0,
+        0,
+        1
+       ]
+      }
+     },
+     "exact_check": {
+      "plans_checked": 4096,
+      "valid_plans": 96,
+      "seconds": 0.016,
+      "agrees": true
+     },
+     "seconds": 28.6
+    }
    }
   },
   "disaster": {
@@ -441,13 +1173,781 @@
     "qubits": 12,
     "reps": 2,
     "shots": 1024,
-    "seconds": 28.9,
+    "seconds": 26.0,
     "restarts": 3,
     "p_opt": 0.00601,
     "p_feasible": 0.3473,
     "p_opt_random": 0.000244,
     "p_feasible_random": 0.0156,
-    "found_optimum": true
+    "found_optimum": true,
+    "trace": {
+     "qubit_map": [
+      {
+       "q": 0,
+       "block": "N1",
+       "hour": 0
+      },
+      {
+       "q": 1,
+       "block": "N1",
+       "hour": 1
+      },
+      {
+       "q": 2,
+       "block": "N1",
+       "hour": 2
+      },
+      {
+       "q": 3,
+       "block": "N2",
+       "hour": 0
+      },
+      {
+       "q": 4,
+       "block": "N2",
+       "hour": 1
+      },
+      {
+       "q": 5,
+       "block": "N2",
+       "hour": 2
+      },
+      {
+       "q": 6,
+       "block": "N3",
+       "hour": 0
+      },
+      {
+       "q": 7,
+       "block": "N3",
+       "hour": 1
+      },
+      {
+       "q": 8,
+       "block": "N3",
+       "hour": 2
+      },
+      {
+       "q": 9,
+       "block": "DC",
+       "hour": 0
+      },
+      {
+       "q": 10,
+       "block": "DC",
+       "hour": 1
+      },
+      {
+       "q": 11,
+       "block": "DC",
+       "hour": 2
+      }
+     ],
+     "bit_order": "bitstring[i] is qubit q_i (q0 is the leftmost character)",
+     "circuit": {
+      "image": "assets/circuit_disaster.svg",
+      "reps": 2,
+      "depth": 60,
+      "two_qubit_gates": 108,
+      "num_params": 4,
+      "note": "depth and two-qubit gates counted after transpile to cx/rz/rx/h (all-to-all, optimization_level=1, seed_transpiler=7) of the QAOA ansatz with the final angles; the drawing is a high-level view (H layer, then cost and mixer layers x2)"
+     },
+     "cobyla": {
+      "iterations": [
+       {
+        "i": 1,
+        "energy": 172.0639,
+        "gamma": [
+         0.3142,
+         -0.4081
+        ],
+        "beta": [
+         -0.2384,
+         -0.2015
+        ]
+       },
+       {
+        "i": 2,
+        "energy": 800.0894,
+        "gamma": [
+         0.3142,
+         -0.4081
+        ],
+        "beta": [
+         0.7616,
+         -0.2015
+        ]
+       },
+       {
+        "i": 3,
+        "energy": 412.9517,
+        "gamma": [
+         0.3142,
+         -0.4081
+        ],
+        "beta": [
+         -0.2384,
+         0.7985
+        ]
+       },
+       {
+        "i": 4,
+        "energy": 350.6201,
+        "gamma": [
+         1.3142,
+         -0.4081
+        ],
+        "beta": [
+         -0.2384,
+         -0.2015
+        ]
+       },
+       {
+        "i": 5,
+        "energy": 107.3081,
+        "gamma": [
+         0.3142,
+         0.5919
+        ],
+        "beta": [
+         -0.2384,
+         -0.2015
+        ]
+       },
+       {
+        "i": 6,
+        "energy": 165.0321,
+        "gamma": [
+         0.0588,
+         0.6846
+        ],
+        "beta": [
+         -1.1369,
+         -0.5462
+        ]
+       },
+       {
+        "i": 7,
+        "energy": 193.5624,
+        "gamma": [
+         0.0756,
+         0.6785
+        ],
+        "beta": [
+         0.0478,
+         -0.5235
+        ]
+       },
+       {
+        "i": 8,
+        "energy": 114.1884,
+        "gamma": [
+         0.2138,
+         0.5919
+        ],
+        "beta": [
+         -0.2384,
+         -0.1271
+        ]
+       },
+       {
+        "i": 9,
+        "energy": 116.6398,
+        "gamma": [
+         0.4997,
+         0.6632
+        ],
+        "beta": [
+         -0.27,
+         -0.0531
+        ]
+       },
+       {
+        "i": 10,
+        "energy": 116.8703,
+        "gamma": [
+         0.3234,
+         0.5568
+        ],
+        "beta": [
+         -0.2063,
+         -0.1892
+        ]
+       },
+       {
+        "i": 11,
+        "energy": 81.9136,
+        "gamma": [
+         0.3141,
+         0.5662
+        ],
+        "beta": [
+         -0.3322,
+         -0.2247
+        ]
+       },
+       {
+        "i": 12,
+        "energy": 76.2755,
+        "gamma": [
+         0.3104,
+         0.5688
+        ],
+        "beta": [
+         -0.4239,
+         -0.2642
+        ]
+       },
+       {
+        "i": 13,
+        "energy": 89.0492,
+        "gamma": [
+         0.3285,
+         0.4726
+        ],
+        "beta": [
+         -0.4413,
+         -0.2539
+        ]
+       },
+       {
+        "i": 14,
+        "energy": 84.4321,
+        "gamma": [
+         0.286,
+         0.5571
+        ],
+        "beta": [
+         -0.4067,
+         -0.3026
+        ]
+       },
+       {
+        "i": 15,
+        "energy": 94.4638,
+        "gamma": [
+         0.3918,
+         0.6237
+        ],
+        "beta": [
+         -0.4378,
+         -0.2774
+        ]
+       },
+       {
+        "i": 16,
+        "energy": 67.6015,
+        "gamma": [
+         0.2463,
+         0.5983
+        ],
+        "beta": [
+         -0.4599,
+         -0.2032
+        ]
+       },
+       {
+        "i": 17,
+        "energy": 86.9991,
+        "gamma": [
+         0.1638,
+         0.6205
+        ],
+        "beta": [
+         -0.466,
+         -0.1516
+        ]
+       },
+       {
+        "i": 18,
+        "energy": 68.8892,
+        "gamma": [
+         0.2796,
+         0.6302
+        ],
+        "beta": [
+         -0.4785,
+         -0.1984
+        ]
+       },
+       {
+        "i": 19,
+        "energy": 69.5189,
+        "gamma": [
+         0.2405,
+         0.6077
+        ],
+        "beta": [
+         -0.4551,
+         -0.2068
+        ]
+       },
+       {
+        "i": 20,
+        "energy": 69.7456,
+        "gamma": [
+         0.2442,
+         0.5859
+        ],
+        "beta": [
+         -0.4722,
+         -0.1854
+        ]
+       },
+       {
+        "i": 21,
+        "energy": 68.8235,
+        "gamma": [
+         0.2447,
+         0.5982
+        ],
+        "beta": [
+         -0.4637,
+         -0.2061
+        ]
+       },
+       {
+        "i": 22,
+        "energy": 67.3927,
+        "gamma": [
+         0.2529,
+         0.594
+        ],
+        "beta": [
+         -0.4539,
+         -0.2042
+        ]
+       },
+       {
+        "i": 23,
+        "energy": 68.3899,
+        "gamma": [
+         0.2597,
+         0.589
+        ],
+        "beta": [
+         -0.451,
+         -0.2088
+        ]
+       },
+       {
+        "i": 24,
+        "energy": 67.3951,
+        "gamma": [
+         0.2495,
+         0.5909
+        ],
+        "beta": [
+         -0.4522,
+         -0.2048
+        ]
+       },
+       {
+        "i": 25,
+        "energy": 66.9872,
+        "gamma": [
+         0.2535,
+         0.5921
+        ],
+        "beta": [
+         -0.453,
+         -0.1944
+        ]
+       },
+       {
+        "i": 26,
+        "energy": 68.1825,
+        "gamma": [
+         0.2605,
+         0.586
+        ],
+        "beta": [
+         -0.4495,
+         -0.1929
+        ]
+       },
+       {
+        "i": 27,
+        "energy": 65.4921,
+        "gamma": [
+         0.2513,
+         0.5983
+        ],
+        "beta": [
+         -0.4456,
+         -0.1929
+        ]
+       },
+       {
+        "i": 28,
+        "energy": 68.7968,
+        "gamma": [
+         0.2458,
+         0.6053
+        ],
+        "beta": [
+         -0.4428,
+         -0.1892
+        ]
+       },
+       {
+        "i": 29,
+        "energy": 68.7676,
+        "gamma": [
+         0.2545,
+         0.5968
+        ],
+        "beta": [
+         -0.4421,
+         -0.1935
+        ]
+       },
+       {
+        "i": 30,
+        "energy": 66.8769,
+        "gamma": [
+         0.2522,
+         0.5991
+        ],
+        "beta": [
+         -0.446,
+         -0.1928
+        ]
+       },
+       {
+        "i": 31,
+        "energy": 67.5031,
+        "gamma": [
+         0.2489,
+         0.5977
+        ],
+        "beta": [
+         -0.4454,
+         -0.1928
+        ]
+       },
+       {
+        "i": 32,
+        "energy": 66.8659,
+        "gamma": [
+         0.2514,
+         0.5982
+        ],
+        "beta": [
+         -0.4456,
+         -0.1924
+        ]
+       },
+       {
+        "i": 33,
+        "energy": 66.3284,
+        "gamma": [
+         0.2516,
+         0.598
+        ],
+        "beta": [
+         -0.4451,
+         -0.1937
+        ]
+       },
+       {
+        "i": 34,
+        "energy": 65.4687,
+        "gamma": [
+         0.2512,
+         0.5986
+        ],
+        "beta": [
+         -0.4453,
+         -0.1928
+        ]
+       },
+       {
+        "i": 35,
+        "energy": 65.9234,
+        "gamma": [
+         0.2504,
+         0.5989
+        ],
+        "beta": [
+         -0.4457,
+         -0.1932
+        ]
+       },
+       {
+        "i": 36,
+        "energy": 66.0579,
+        "gamma": [
+         0.2511,
+         0.5989
+        ],
+        "beta": [
+         -0.4448,
+         -0.1928
+        ]
+       },
+       {
+        "i": 37,
+        "energy": 66.1771,
+        "gamma": [
+         0.2511,
+         0.5986
+        ],
+        "beta": [
+         -0.4452,
+         -0.1928
+        ]
+       },
+       {
+        "i": 38,
+        "energy": 65.3927,
+        "gamma": [
+         0.2513,
+         0.5988
+        ],
+        "beta": [
+         -0.4454,
+         -0.1929
+        ]
+       },
+       {
+        "i": 39,
+        "energy": 65.3498,
+        "gamma": [
+         0.2514,
+         0.5988
+        ],
+        "beta": [
+         -0.4454,
+         -0.1929
+        ]
+       },
+       {
+        "i": 40,
+        "energy": 65.9033,
+        "gamma": [
+         0.2513,
+         0.5988
+        ],
+        "beta": [
+         -0.4455,
+         -0.1928
+        ]
+       },
+       {
+        "i": 41,
+        "energy": 65.6883,
+        "gamma": [
+         0.2514,
+         0.5987
+        ],
+        "beta": [
+         -0.4454,
+         -0.1929
+        ]
+       },
+       {
+        "i": 42,
+        "energy": 65.372,
+        "gamma": [
+         0.2514,
+         0.5988
+        ],
+        "beta": [
+         -0.4453,
+         -0.1928
+        ]
+       },
+       {
+        "i": 43,
+        "energy": 65.9139,
+        "gamma": [
+         0.2514,
+         0.5988
+        ],
+        "beta": [
+         -0.4454,
+         -0.1929
+        ]
+       },
+       {
+        "i": 44,
+        "energy": 65.2164,
+        "gamma": [
+         0.2513,
+         0.5987
+        ],
+        "beta": [
+         -0.4453,
+         -0.1928
+        ]
+       },
+       {
+        "i": 45,
+        "energy": 66.0333,
+        "gamma": [
+         0.2513,
+         0.5987
+        ],
+        "beta": [
+         -0.4453,
+         -0.1928
+        ]
+       }
+      ],
+      "final_gamma": [
+       0.2513,
+       0.5987
+      ],
+      "final_beta": [
+       -0.4453,
+       -0.1928
+      ],
+      "evaluations": 45,
+      "energy_note": "QUBO energy (penalty included) estimated from 1024 sampled shots per evaluation"
+     },
+     "histogram": {
+      "shots": 1024,
+      "top": [
+       {
+        "bitstring": "010010011100",
+        "count": 12,
+        "rank": 1,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 31.94
+       },
+       {
+        "bitstring": "010100011010",
+        "count": 12,
+        "rank": 1,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 33.04
+       },
+       {
+        "bitstring": "100010011010",
+        "count": 12,
+        "rank": 1,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 32.8
+       },
+       {
+        "bitstring": "110011010000",
+        "count": 11,
+        "rank": 4,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 34.64
+       },
+       {
+        "bitstring": "010110000011",
+        "count": 11,
+        "rank": 4,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 29.14
+       },
+       {
+        "bitstring": "010011010100",
+        "count": 10,
+        "rank": 6,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 29.54
+       },
+       {
+        "bitstring": "100010010010",
+        "count": 10,
+        "rank": 6,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "000011010010",
+        "count": 10,
+        "rank": 6,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "000010010110",
+        "count": 10,
+        "rank": 6,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "000010010011",
+        "count": 10,
+        "rank": 6,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "010010010100",
+        "count": 9,
+        "rank": 11,
+        "valid": false,
+        "is_optimum": false,
+        "objective": null
+       },
+       {
+        "bitstring": "011010010100",
+        "count": 9,
+        "rank": 11,
+        "valid": true,
+        "is_optimum": false,
+        "objective": 30.26
+       },
+       {
+        "bitstring": "010010010101",
+        "count": 8,
+        "rank": 16,
+        "valid": true,
+        "is_optimum": true,
+        "objective": 23.84
+       }
+      ]
+     },
+     "decoded": {
+      "bitstring": "010010010101",
+      "off": {
+       "N1": [
+        0,
+        1,
+        0
+       ],
+       "N2": [
+        0,
+        1,
+        0
+       ],
+       "N3": [
+        0,
+        1,
+        0
+       ],
+       "DC": [
+        1,
+        0,
+        1
+       ]
+      }
+     },
+     "exact_check": {
+      "plans_checked": 4096,
+      "valid_plans": 64,
+      "seconds": 0.016,
+      "agrees": true
+     },
+     "seconds": 26.0
+    }
    }
   }
  },

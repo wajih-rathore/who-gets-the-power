@@ -17,8 +17,8 @@ Run: `cd src && ../.venv/bin/python -m bijli.run` (equivalently `PYTHONPATH=src 
 
 QAOA:
 
-- normal: {"qubits": 12, "reps": 2, "shots": 1024, "seconds": 28.0, "restarts": 3, "p_opt": 0.00566, "p_feasible": 0.4587, "p_opt_random": 0.000244, "p_feasible_random": 0.0234, "found_optimum": true}
-- disaster: {"qubits": 12, "reps": 2, "shots": 1024, "seconds": 28.9, "restarts": 3, "p_opt": 0.00601, "p_feasible": 0.3473, "p_opt_random": 0.000244, "p_feasible_random": 0.0156, "found_optimum": true}
+- normal: {"qubits": 12, "reps": 2, "shots": 1024, "seconds": 28.6, "restarts": 3, "p_opt": 0.00566, "p_feasible": 0.4587, "p_opt_random": 0.000244, "p_feasible_random": 0.0234, "found_optimum": true}
+- disaster: {"qubits": 12, "reps": 2, "shots": 1024, "seconds": 26.0, "restarts": 3, "p_opt": 0.00601, "p_feasible": 0.3473, "p_opt_random": 0.000244, "p_feasible_random": 0.0156, "found_optimum": true}
 
 Sweep (exact plan per revenue weight):
 

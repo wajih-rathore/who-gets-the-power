@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -49,3 +52,21 @@ def test_metrics_on_hand_checked_plan():
     assert m["economic_damage"] == pytest.approx(1.6 * 1.0 + 1.6 * 1.4 + 1.0 * 1.4)
     # fairness 2*(4+1)=10, back-to-back 3, revenue lost 4.5, damage 5.24
     assert m["objective"] == pytest.approx(10 + 3 + 4.5 + 5.24)
+
+
+@pytest.mark.parametrize("scenario", ["normal", "disaster"])
+def test_qaoa_trace_bitstring_decodes_to_the_qaoa_plan(scenario):
+    sc = json.loads((Path(__file__).resolve().parents[1] / "web" / "data" / "results.json").read_text())["scenarios"][scenario]
+    tr, k = sc["qaoa"]["trace"], sc["shortfall_blocks"]
+
+    def decode(bitstring):  # bitstring[i] = qubit q_i, q0 leftmost
+        off = {b: [0] * 3 for b in BLOCKS}
+        for m in tr["qubit_map"]:
+            off[m["block"]][m["hour"]] = int(bitstring[m["q"]])
+        return off
+
+    assert decode(tr["decoded"]["bitstring"]) == sc["plans"]["qaoa"]["off"] == tr["decoded"]["off"]
+    for h in tr["histogram"]["top"]:  # same decoding gives the validity flag and the objective
+        x = [int(c) for c in h["bitstring"]]
+        assert h["valid"] == feasible(x, k) and (h["objective"] is None) == (not h["valid"])
+        assert h["is_optimum"] == (x == exact(k)[0])
