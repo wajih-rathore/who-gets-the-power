@@ -1,6 +1,6 @@
 # Who Gets the Power?: 3-minute video script
 
-Read aloud by the team, about 300 spoken words (about 2:20 at 130 words a minute, leaving room for the map animations). Numbers come from `web/data/results.json` (normal scenario unless noted). Say "set aside", never "is running". Keep a neutral tone. Open the page at step 1: https://who-gets-the-power.vercel.app/#step=1
+Read aloud by the team, about 240 spoken words (about 1:50 at 130 words a minute, leaving room for the map animations). Numbers come from `web/data/results.json` (normal scenario unless noted). Say "set aside", never "is running". Keep a neutral tone. Open the page at step 1: https://who-gets-the-power.vercel.app/#step=1
 
 ## 0:00 - 0:20 Hook
 [SCREEN: Title, then the two facts as headlines]
