@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Gets the Power? · Bijli Kis Ko?</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>Who Gets the Power? <span class="ur">· Bijli Kis Ko?</span></h1>
+    <p class="hook">Not enough electricity for everyone at 3 pm: the AI data center, your neighborhood, or the hospital?</p>
+  </div>
+  <div class="head-r">
+    <span class="tag">Synthetic data</span>
+    <span class="tag mock" id="mock" hidden>mock data</span>
+    <button id="disaster" class="disaster" aria-pressed="false">Disaster: plant trips</button>
+  </div>
+</header>
+
+<main>
+  <section class="left">
+    <div class="seg" role="radiogroup" aria-label="Plan" id="plan-toggle"></div>
+    <div class="mapwrap">
+      <svg id="map" viewBox="0 0 560 300" role="img" aria-label="Schematic map: three neighborhoods, an AI data center and a hospital"></svg>
+      <div class="maphour" id="maphour"></div>
+    </div>
+    <p id="scenario-desc" class="desc" aria-live="polite"></p>
+  </section>
+
+  <section class="right">
+    <div class="panel">
+      <h2>Who is dark, hour by hour <small>click an hour to show it on the map</small></h2>
+      <table id="tl"></table>
+    </div>
+    <div class="row2">
+      <div class="panel">
+        <h2>Fairness</h2>
+        <div class="fair" id="fair"></div>
+      </div>
+      <div class="panel">
+        <h2>Data center revenue kept</h2>
+        <div class="rev" id="rev"></div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="panel">
+        <h2>Trade-off <small>protect homes ↔ protect revenue</small></h2>
+        <input type="range" id="sweep" min="0" max="3" step="1" value="1" aria-label="Trade-off between protecting homes and protecting data center revenue">
+        <div class="ticks" id="ticks"></div>
+        <div class="sweeplbl" id="sweeplbl"></div>
+      </div>
+      <div class="panel">
+        <h2>QAOA run <small id="qsub"></small></h2>
+        <dl id="qaoa"></dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Synthetic data. Numbers come from real solver runs (see README).</footer>
+<script src="app.js"></script>
+</body>
+</html>
